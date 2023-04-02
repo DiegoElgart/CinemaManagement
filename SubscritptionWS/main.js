@@ -5,6 +5,7 @@ const app = express();
 const PORT = 4000;
 
 const membersRoutes = require("./Routes/membersRoutes");
+const moviesRoutes = require("./Routes/moviesRoutes");
 
 app.use(express.json());
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(cors());
 connectDB();
 
 app.use("/members", membersRoutes);
+app.use("/movies", moviesRoutes);
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)
