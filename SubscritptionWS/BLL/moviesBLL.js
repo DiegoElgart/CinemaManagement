@@ -6,10 +6,10 @@ const getAllMovies = async () => {
 
     movies = movies.map(movie => {
         return {
-            Name: movie.name,
-            Genres: [...movie.genres],
-            Image: movie.image.original,
-            Premiered: movie.premiered,
+            name: movie.name,
+            genres: [...movie.genres],
+            image: movie.image.original,
+            premiered: movie.premiered,
         };
     });
     const movieDB = await Movie.find();
@@ -23,4 +23,25 @@ const getAllMovies = async () => {
     }
 };
 
-module.exports = { getAllMovies };
+const addMovie = async obj => {
+    const { name } = obj;
+    const existingMovie = await Movie.findOne({ name });
+    if (existingMovie) {
+        throw new Error("Movie already exitst with given name");
+    }
+    const movie = new Movie(obj);
+    await movie.save();
+    return "Movie Created";
+};
+
+const updateMovie = async (id, obj) => {
+    await Movie.findByIdAndUpdate(id, obj);
+    return "Movie Updated";
+};
+
+const deleteMovie = async id => {
+    await Movie.findByIdAndDelete(id);
+    return "Movie Deleted";
+};
+
+module.exports = { getAllMovies, addMovie, updateMovie, deleteMovie };

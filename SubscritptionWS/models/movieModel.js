@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const movieSchema = new Schema(
     {
-        Name: { type: String, required: true },
-        Genres: [{ type: String, required: true }],
-        Image: { type: String, required: true },
-        Premiered: { type: Date, required: true },
+        name: { type: String, required: true },
+        genres: [{ type: String, required: true }],
+        image: { type: String, required: true },
+        premiered: { type: Date, required: true },
     },
     { versionKey: false }
 );

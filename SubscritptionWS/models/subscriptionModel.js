@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const subscriptionSchema = new Schema(
     {
-        MemberId: {
+        memberId: {
             type: Schema.Types.ObjectId,
             ref: "member",
             required: true,
         },
-        Movies: [
+        movies: [
             {
                 movieId: {
                     type: Schema.Types.ObjectId,

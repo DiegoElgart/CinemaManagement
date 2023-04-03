@@ -6,9 +6,9 @@ const getAllMembers = async () => {
 
     members = members.map(member => {
         return {
-            Name: member.name,
-            Email: member.email,
-            City: member.address.city,
+            name: member.name,
+            email: member.email,
+            city: member.address.city,
         };
     });
 
@@ -23,4 +23,25 @@ const getAllMembers = async () => {
     }
 };
 
-module.exports = { getAllMembers };
+const addMember = async obj => {
+    const { email } = obj;
+    const existingMember = await Member.findOne({ email });
+    if (existingMember) {
+        throw new Error("Member already exists with the given email");
+    }
+    const member = new Member(obj);
+    await member.save();
+    return "Member Created";
+};
+
+const updateMember = async (id, obj) => {
+    await Member.findByIdAndUpdate(id, obj);
+    return "Member Updated";
+};
+
+const deleteMember = async id => {
+    await Member.findByIdAndDelete(id);
+    return "Member Deleted";
+};
+
+module.exports = { getAllMembers, addMember, updateMember, deleteMember };
