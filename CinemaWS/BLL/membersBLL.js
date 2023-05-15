@@ -21,4 +21,4 @@ const deleteMember = async id => {
     return "Member Deleted!";
 };
 
-module.exports(getAllMembers, addMember, updateMember, deleteMember);
+module.exports = { getAllMembers, addMember, updateMember, deleteMember };
