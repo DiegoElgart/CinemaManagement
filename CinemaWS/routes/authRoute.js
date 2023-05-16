@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const userBLL = require("../bll/usersBLL");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -9,6 +10,11 @@ require("dotenv").config();
 const router = express.Router();
 
 // Entry point 'http://localhost:3000/auth'
+
+router.route("/getUsers").get(async (req, res) => {
+    const data = await userBLL.getUsers();
+    res.json(data);
+});
 
 router.route("/login").post(async (req, res) => {
     const { username, password } = req.body;
@@ -36,6 +42,7 @@ router.route("/signUp").post(async (req, res) => {
         const hashPassword = await bcrypt.hash(password, saltRounds);
 
         const user = new User({ username, password: hashPassword });
+        await userBLL.setUsers(user);
         await user.save();
         res.status(201).json("created");
     }

@@ -6,8 +6,7 @@ const getUsers = () => {
 };
 
 const setUsers = async obj => {
-    await jsonfile.writeFile(file, obj);
-    return "User written in json!";
+    return await jsonfile.writeFile(file, obj);
 };
 
 module.exports = { getUsers, setUsers };

@@ -21,4 +21,4 @@ const deleteMovie = async id => {
     return "Movie Deleted!";
 };
 
-module.exports(getAllmovies, addMovie, updateMovie, deleteMovie);
+module.exports = { getAllmovies, addMovie, updateMovie, deleteMovie };

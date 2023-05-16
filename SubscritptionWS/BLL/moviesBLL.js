@@ -12,14 +12,15 @@ const getAllMovies = async () => {
             premiered: movie.premiered,
         };
     });
-    const movieDB = await Movie.find();
+    const moviesDB = await Movie.find();
 
-    if (movieDB.length <= 1) {
+    if (moviesDB.length < movies.length) {
         await Movie.insertMany(movies);
-        const moviesDB = await Movie.find();
-        return moviesDB;
+        const newMoviesDB = await Movie.find();
+        console.log("This happens");
+        return newMoviesDB;
     } else {
-        return movies;
+        return moviesDB;
     }
 };
 
