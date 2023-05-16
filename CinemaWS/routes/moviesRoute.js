@@ -22,4 +22,25 @@ router.route("/new").post(async (req, res) => {
     }
 });
 
+router.route("/:id").post(async (req, res) => {
+    try {
+        const obj = req.body;
+        const { id } = req.params;
+        const result = await moviesBLL.updateMovie(id, obj);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.route("/:id/delete").post(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await moviesBLL.deleteMovie(id);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports = router;

@@ -12,14 +12,14 @@ const getAllMembers = async () => {
         };
     });
 
-    const memberDB = await Member.find();
-    //  console.log(memberDB.length);
-    if (memberDB.length <= 1) {
+    const membersDB = await Member.find();
+
+    if (membersDB.length < members.length) {
         await Member.insertMany(members);
-        const membersDB = await Member.find();
-        return membersDB;
+        const newMembersDB = await Member.find();
+        return newMembersDB;
     } else {
-        return members;
+        return membersDB;
     }
 };
 

@@ -17,7 +17,6 @@ const getAllMovies = async () => {
     if (moviesDB.length < movies.length) {
         await Movie.insertMany(movies);
         const newMoviesDB = await Movie.find();
-        console.log("This happens");
         return newMoviesDB;
     } else {
         return moviesDB;

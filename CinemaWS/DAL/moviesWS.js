@@ -9,12 +9,12 @@ const getAllMovies = () => {
 const addMovie = async obj => {
     return await axios.post(`${URL}/new`, obj);
 };
-const updateMovie = async (obj, id) => {
+const updateMovie = async (id, obj) => {
     return await axios.post(`${URL}/${id}`, obj);
 };
 
 const deleteMovie = async id => {
-    return await axios.post(`${URL}/${id}`);
+    return await axios.post(`${URL}/delete/${id}`);
 };
 
 module.exports = { getAllMovies, addMovie, updateMovie, deleteMovie };
