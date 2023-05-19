@@ -1,7 +1,7 @@
 const subscriptionsDAL = require("../DAL/subscriptionWS");
 
-const getAllSubscriptions = () => {
-    const data = subscriptionsDAL.getAllSubscriptions();
+const getAllSubscriptions = async () => {
+    const { data } = await subscriptionsDAL.getAllSubscriptions();
     return data;
 };
 
@@ -10,4 +10,4 @@ const addSubscription = async obj => {
     return "Subscription added!";
 };
 
-module.export = { getAllSubscriptions, addSubscription };
+module.exports = { getAllSubscriptions, addSubscription };

@@ -9,10 +9,11 @@ const addSubscription = async obj => {
     const { memberId } = obj;
     const existingSubscription = await Subscription.findOne({ memberId });
     if (existingSubscription) {
-        throw new Error("Subscription already exitst");
+        await updateSubscriptionById(memberId, obj);
+    } else {
+        const subscription = new Subscription(obj);
+        await subscription.save();
     }
-    const subscription = new Subscription(obj);
-    await subscription.save();
     return "Subscription Created";
 };
 
