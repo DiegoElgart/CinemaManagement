@@ -12,6 +12,16 @@ router.route("/").get(async (req, res) => {
     }
 });
 
+router.route("/:id").get(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await subscriptionsBLL.getSubscriptionById(id);
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 router.route("/new").post(async (req, res) => {
     try {
         const obj = req.body;

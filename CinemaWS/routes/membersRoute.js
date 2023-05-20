@@ -12,6 +12,16 @@ router.route("/").get(async (req, res) => {
     }
 });
 
+router.route("/:id").get(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const member = await membersBLL.getMemberById(id);
+        res.json(member);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 router.route("/add").post(async (req, res) => {
     try {
         const member = req.body;

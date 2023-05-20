@@ -23,6 +23,11 @@ const getAllMembers = async () => {
     }
 };
 
+const getMemberById = async id => {
+    const member = Member.findById(id);
+    return member;
+};
+
 const addMember = async obj => {
     const { email } = obj;
     const existingMember = await Member.findOne({ email });
@@ -44,4 +49,10 @@ const deleteMember = async id => {
     return "Member Deleted";
 };
 
-module.exports = { getAllMembers, addMember, updateMember, deleteMember };
+module.exports = {
+    getAllMembers,
+    getMemberById,
+    addMember,
+    updateMember,
+    deleteMember,
+};

@@ -23,6 +23,11 @@ const getAllMovies = async () => {
     }
 };
 
+const getMovieById = async id => {
+    const movie = await Movie.findById(id);
+    return movie;
+};
+
 const addMovie = async obj => {
     const { name } = obj;
     const existingMovie = await Movie.findOne({ name });
@@ -44,4 +49,10 @@ const deleteMovie = async id => {
     return "Movie Deleted";
 };
 
-module.exports = { getAllMovies, addMovie, updateMovie, deleteMovie };
+module.exports = {
+    getAllMovies,
+    getMovieById,
+    addMovie,
+    updateMovie,
+    deleteMovie,
+};

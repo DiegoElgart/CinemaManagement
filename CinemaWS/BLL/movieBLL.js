@@ -6,6 +6,12 @@ const getAllmovies = async () => {
     return movies;
 };
 
+const getMovieById = async id => {
+    const movies = await getAllmovies();
+    const movie = movies.find(movie => movie._id === id);
+    return movie;
+};
+
 const addMovie = async obj => {
     await moviesDAL.addMovie(obj);
     return "Movie Added!";
@@ -21,4 +27,10 @@ const deleteMovie = async id => {
     return "Movie Deleted!";
 };
 
-module.exports = { getAllmovies, addMovie, updateMovie, deleteMovie };
+module.exports = {
+    getAllmovies,
+    getMovieById,
+    addMovie,
+    updateMovie,
+    deleteMovie,
+};

@@ -6,6 +6,12 @@ const getAllMembers = async () => {
     return members;
 };
 
+const getMemberById = async id => {
+    const members = await getAllMembers();
+    const member = members.find(member => member._id === id);
+    return member;
+};
+
 const addMember = async obj => {
     await membersDAL.addMember(obj);
     return "Member Added!";
@@ -21,4 +27,10 @@ const deleteMember = async id => {
     return "Member Deleted!";
 };
 
-module.exports = { getAllMembers, addMember, updateMember, deleteMember };
+module.exports = {
+    getAllMembers,
+    getMemberById,
+    addMember,
+    updateMember,
+    deleteMember,
+};

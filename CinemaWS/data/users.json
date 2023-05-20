@@ -10,6 +10,11 @@
             "username": "Roni",
             "password": "$2b$10$HeIyZ1Oro2km5oaDa7EINu1IniyGiSeZHq.59jHUip3UCnmVt8K4C",
             "_id": "64633aca2d7dcc1f5a0a4efb"
+        },
+        {
+            "username": "Ravid",
+            "password": "$2b$10$aGMUbtb64G80FjykPGN.yuI9gXXpWmTfZezlRK94ynx/y3urPGCS2",
+            "_id": "64674c98b58cb9dfd7602df2"
         }
     ]
 }
