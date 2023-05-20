@@ -9,16 +9,14 @@ require("dotenv").config();
 
 const router = express.Router();
 
-// Entry point 'http://localhost:3000/auth'
-
-router.route("/getUsers").get(async (req, res) => {
-    try {
-        const data = await userBLL.getUsers();
-        res.json(data);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+// router.route("/getUsers").get(async (req, res) => {
+//     try {
+//         const data = await userBLL.getUsers();
+//         res.json(data);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 router.route("/login").post(async (req, res) => {
     try {
