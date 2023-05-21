@@ -1,11 +1,9 @@
-
-
 function App() {
-  return (
-    <div className="App">
-   <h1>אוסטרוב היקר</h1>
-    </div>
-  );
+    return (
+        <div className='App'>
+            <h1> היקר</h1>
+        </div>
+    );
 }
 
 export default App;
