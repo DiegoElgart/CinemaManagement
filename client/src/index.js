@@ -1,15 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import ReactDOM from "react-dom";
 
+import App from "./App";
+import { store } from "./app/store";
 import { Provider } from "react-redux";
-const store = "";
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-    <BrowserRouter>
+import { fetchMovies } from "./features/movies/moviesSlice";
+
+store.dispatch(fetchMovies());
+
+ReactDOM.render(
+    <React.StrictMode>
         <Provider store={store}>
             <App />
         </Provider>
-    </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
