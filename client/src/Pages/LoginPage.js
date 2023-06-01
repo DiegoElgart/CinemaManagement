@@ -16,7 +16,8 @@ const LoginPage = () => {
         }));
     };
 
-    const onLogin = () => {
+    const onLogin = e => {
+        e.preventDefault(); // Prevent the default form submission behavior
         try {
             dispatch(
                 loginUser({
@@ -28,10 +29,13 @@ const LoginPage = () => {
             console.log(err);
         }
     };
+
     return (
         <div>
             <h1>Login </h1>
-            <form>
+            <form onSubmit={onLogin}>
+                {" "}
+                {/* Attach onSubmit to the form element */}
                 <label>User Name: </label>
                 <input
                     type='text'
@@ -52,7 +56,8 @@ const LoginPage = () => {
                 />
                 <br />
                 <br />
-                <input type='submit' value='Login' onSubmit={onLogin} />
+                <input type='submit' value='Login' />{" "}
+                {/* Move onSubmit to the form element */}
             </form>
             <p>New User ? :</p>
             <a href='/'>Create Account</a>
