@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import { fetchMovies } from "./features/movies/moviesSlice";
+import { fetchMovies } from "./slices/movies/moviesSlice";
 
 store.dispatch(fetchMovies());
 

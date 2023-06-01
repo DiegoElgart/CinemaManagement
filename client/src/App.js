@@ -1,12 +1,11 @@
-import AddMovieForm from "./features/movies/AddMovieForm";
-import MovieList from "./features/movies/MovieList";
+import "./app.css";
+import LoginPage from "./Pages/LoginPage";
 
 function App() {
     return (
-        <main>
-            <h1>hola</h1>
-            <AddMovieForm />
-            <MovieList />
+        <main className='container'>
+            <h1>Cinema Managment</h1>
+            <LoginPage />
         </main>
     );
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addNewMovie } from "./moviesSlice";
+import { addNewMovie } from "../slices/movies/moviesSlice";
 
 const AddMovieForm = () => {
     const dispatch = useDispatch();
