@@ -1,13 +1,27 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { loginUser } from "../slices/users/usersSlice";
+import {
+    getUserStatus,
+    loginUser,
+    selectUser,
+} from "../slices/users/usersSlice";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({ username: "", password: "" });
-
     const { username, password } = formData;
+    const user = useSelector(selectUser);
+    const userStatus = useSelector(getUserStatus);
+
+    // useEffect(() => {
+    //     if (userStatus === "succeeded") {
+    //         localStorage.setItem("accessToken", user.accessToken);
+    //         navigate("/main");
+    //     }
+    // }, [userStatus, navigate, user.accessToken]);
 
     const handleChange = e => {
         setFormData(prevState => ({
@@ -17,7 +31,7 @@ const LoginPage = () => {
     };
 
     const onLogin = e => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        e.preventDefault();
         try {
             dispatch(
                 loginUser({
@@ -25,17 +39,17 @@ const LoginPage = () => {
                     password: formData.password,
                 })
             );
+            navigate("/main");
         } catch (err) {
             console.log(err);
         }
+        setFormData({ username: "", password: "" });
     };
 
     return (
         <div>
             <h1>Login </h1>
             <form onSubmit={onLogin}>
-                {" "}
-                {/* Attach onSubmit to the form element */}
                 <label>User Name: </label>
                 <input
                     type='text'
@@ -56,11 +70,13 @@ const LoginPage = () => {
                 />
                 <br />
                 <br />
-                <input type='submit' value='Login' />{" "}
-                {/* Move onSubmit to the form element */}
+                <input type='submit' value='Login' />
             </form>
-            <p>New User ? :</p>
-            <a href='/'>Create Account</a>
+
+            <br />
+            <button onClick={() => navigate("/register")}>
+                Create New Account
+            </button>
         </div>
     );
 };
