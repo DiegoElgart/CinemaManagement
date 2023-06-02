@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../slices/users/usersSlice";
 
 const MainPage = () => {
-    const user = useSelector(selectUser);
-    console.log(user);
+    // const user = useSelector(selectUser);
+    // console.log(user);
     const navigate = useNavigate();
 
     const handleMoviesClick = () => {

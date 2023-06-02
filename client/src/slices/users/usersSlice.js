@@ -7,6 +7,14 @@ const USERS_URL = "http://localhost:3000/auth";
 
 const initialState = { user: {}, status: "idle", error: null };
 
+export const fetchAllUsers = createAsyncThunk(
+    "users/fetchAllUsers",
+    async () => {
+        const response = await axios.get(USERS_URL);
+        return response.data;
+    }
+);
+
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
     const response = await axios.post(`${USERS_URL}/login`, loginData);
     localStorage.setItem("accessToken", response.data.accessToken);
@@ -20,6 +28,7 @@ const userSlice = createSlice({
         usersLogin: (state, action) => {
             state = action.payload;
         },
+        allUsers:{}
     },
     extraReducers(builder) {
         builder
