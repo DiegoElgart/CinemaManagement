@@ -1,16 +1,15 @@
 // usersSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const USERS_URL = "http://localhost:3000/auth";
 
-const initialState = { user: {}, status: "idle", error: null };
+const initialState = { user: {}, users: [], status: "idle", error: null };
 
 export const fetchAllUsers = createAsyncThunk(
     "users/fetchAllUsers",
     async () => {
-        const response = await axios.get(USERS_URL);
+        const response = await axios.get(`${USERS_URL}/getUsers`);
         return response.data;
     }
 );
@@ -28,7 +27,6 @@ const userSlice = createSlice({
         usersLogin: (state, action) => {
             state = action.payload;
         },
-        allUsers:{}
     },
     extraReducers(builder) {
         builder
@@ -42,6 +40,13 @@ const userSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
+            })
+            .addCase(fetchAllUsers.pending, (state, action) => {
+                state.status = "loading all users";
+            })
+            .addCase(fetchAllUsers.fulfilled, (state, action) => {
+                state.status = "succeeded fetching all users";
+                state.users = action.payload.users;
             });
     },
 });
@@ -49,5 +54,6 @@ const userSlice = createSlice({
 export const selectUser = state => state.user.user;
 export const getUserStatus = state => state.user.status;
 export const getUsersError = state => state.user.error;
+export const getAllUsers = state => state.user.users;
 
 export default userSlice.reducer;

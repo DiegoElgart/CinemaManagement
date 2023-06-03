@@ -1,10 +1,15 @@
 const usersDAL = require("../DAL/usersDAL");
+const User = require("../models/userModel");
 
 const getUsers = async () => {
-    const data = await usersDAL.getUsers();
-    return data;
+    const { users } = await usersDAL.getUsers();
+    const dbUsers = await User.find();
+    const mergedUsers = users.map(jsonUser => {
+        const matchginId = dbUsers.find(dbUser => dbUser._id === jsonUser._id);
+        return { ...jsonUser, ...matchginId };
+    });
+    return mergedUsers;
 };
-
 const setUsers = async obj => {
     const { users } = await getUsers();
     users.push(obj);

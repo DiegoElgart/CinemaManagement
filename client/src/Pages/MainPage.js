@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/users/usersSlice";
 
@@ -41,6 +41,7 @@ const MainPage = () => {
 
                 <button onClick={handleLogoutClick}>Logout</button>
             </div>
+            <Outlet />
         </div>
     );
 };

@@ -9,14 +9,14 @@ require("dotenv").config();
 
 const router = express.Router();
 
-// router.route("/getUsers").get(async (req, res) => {
-//     try {
-//         const data = await userBLL.getUsers();
-//         res.json(data);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
+router.route("/getUsers").get(async (req, res) => {
+    try {
+        const data = await userBLL.getUsers();
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 router.route("/login").post(async (req, res) => {
     try {
@@ -40,7 +40,14 @@ router.route("/login").post(async (req, res) => {
 
 router.route("/signUp").post(async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const {
+            fname,
+            lname,
+            createdDate,
+            sessionTimeOut,
+            username,
+            password,
+        } = req.body;
         const checkIfUser = await User.find({ username: username });
 
         if (checkIfUser.length == 1) {
@@ -49,7 +56,14 @@ router.route("/signUp").post(async (req, res) => {
             const hashPassword = await bcrypt.hash(password, saltRounds);
 
             const user = new User({ username, password: hashPassword });
-            await userBLL.setUsers(user);
+            const prepareUserForJson = {
+                _id: user._id,
+                fname,
+                lname,
+                createdDate: new Date(),
+                sessionTimeOut,
+            };
+            await userBLL.setUsers(prepareUserForJson);
             await user.save();
             res.status(201).json("created");
         }
