@@ -56,6 +56,7 @@ router.route("/signUp").post(async (req, res) => {
             const hashPassword = await bcrypt.hash(password, saltRounds);
 
             const user = new User({ username, password: hashPassword });
+            await user.save();
             const prepareUserForJson = {
                 _id: user._id,
                 fname,
@@ -64,7 +65,6 @@ router.route("/signUp").post(async (req, res) => {
                 sessionTimeOut,
             };
             await userBLL.setUsers(prepareUserForJson);
-            await user.save();
             res.status(201).json("created");
         }
     } catch (err) {

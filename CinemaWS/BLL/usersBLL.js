@@ -11,7 +11,8 @@ const getUsers = async () => {
     return mergedUsers;
 };
 const setUsers = async obj => {
-    const { users } = await getUsers();
+    const users = await getUsers();
+    console.log(users);
     users.push(obj);
     const data = { users };
     const result = await usersDAL.setUsers(data);

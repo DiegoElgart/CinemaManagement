@@ -46,7 +46,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchAllUsers.fulfilled, (state, action) => {
                 state.status = "succeeded fetching all users";
-                state.users = action.payload.users;
+                state.users = action.payload;
             });
     },
 });
