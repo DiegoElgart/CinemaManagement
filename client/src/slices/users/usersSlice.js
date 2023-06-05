@@ -13,6 +13,10 @@ export const fetchAllUsers = createAsyncThunk(
         return response.data;
     }
 );
+export const addUser = createAsyncThunk("users/addUser", async newUser => {
+    const response = await axios.post(`${USERS_URL}/signUp`, newUser);
+    return response.data;
+});
 
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
     const response = await axios.post(`${USERS_URL}/login`, loginData);
@@ -30,6 +34,11 @@ const userSlice = createSlice({
     reducers: {
         usersLogin: (state, action) => {
             state = action.payload;
+        },
+        userAdded: {
+            async reducer(state, action) {
+                state.users.push(action.payload);
+            },
         },
     },
     extraReducers(builder) {
@@ -55,6 +64,12 @@ const userSlice = createSlice({
             .addCase(logout.fulfilled, (state, action) => {
                 state.status = "idle";
                 state.user = {};
+            })
+            .addCase(addUser.fulfilled, (state, action) => {
+                state.users.push(action.payload);
+            })
+            .addCase(addUser.rejected, (state, action) => {
+                state.error = action.error.message;
             });
     },
 });

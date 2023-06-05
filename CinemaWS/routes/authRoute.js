@@ -42,7 +42,6 @@ router.route("/signUp").post(async (req, res) => {
     try {
         const { fname, lname, sessionTimeOut, username, password } = req.body;
         const checkIfUser = await User.findOne({ username: username });
-
         if (checkIfUser && !checkIfUser.password && password !== "") {
             const hashPassword = await bcrypt.hash(password, saltRounds);
             checkIfUser.password = hashPassword;
