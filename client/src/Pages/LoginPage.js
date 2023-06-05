@@ -13,15 +13,19 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ username: "", password: "" });
     const { username, password } = formData;
-    const user = useSelector(selectUser);
-    const userStatus = useSelector(getUserStatus);
 
-    // useEffect(() => {
-    //     if (userStatus === "succeeded") {
-    //         localStorage.setItem("accessToken", user.accessToken);
-    //         navigate("/main");
-    //     }
-    // }, [userStatus, navigate, user.accessToken]);
+    const userStatus = useSelector(getUserStatus);
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (userStatus === "succeeded") {
+            localStorage.setItem("accessToken", user.accessToken);
+            navigate("/main");
+        } else if (userStatus === "failed") {
+            navigate("/");
+            alert("wrong password or username");
+        }
+    }, [userStatus, user, navigate]);
 
     const handleChange = e => {
         setFormData(prevState => ({
@@ -39,7 +43,8 @@ const LoginPage = () => {
                     password: formData.password,
                 })
             );
-            navigate("/main");
+
+            // navigate("/main");
         } catch (err) {
             console.log(err);
         }

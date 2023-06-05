@@ -1,9 +1,10 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../slices/users/usersSlice";
+import { useDispatch } from "react-redux";
+import { logout } from "../slices/users/usersSlice";
 
 const MainPage = () => {
+    const dispatch = useDispatch();
     // const user = useSelector(selectUser);
     // console.log(user);
     const navigate = useNavigate();
@@ -20,8 +21,8 @@ const MainPage = () => {
         navigate("/manage-users");
     };
 
-    const handleLogoutClick = () => {
-        localStorage.removeItem("accessToken");
+    const handleLogoutClick = async () => {
+        await dispatch(logout());
         navigate("/");
     };
 

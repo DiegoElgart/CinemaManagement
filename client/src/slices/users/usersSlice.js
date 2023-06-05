@@ -20,6 +20,10 @@ export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
     return response.data;
 });
 
+export const logout = createAsyncThunk("user/logout", async () => {
+    localStorage.removeItem("accessToken");
+});
+
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -47,6 +51,10 @@ const userSlice = createSlice({
             .addCase(fetchAllUsers.fulfilled, (state, action) => {
                 state.status = "succeeded fetching all users";
                 state.users = action.payload;
+            })
+            .addCase(logout.fulfilled, (state, action) => {
+                state.status = "idle";
+                state.user = {};
             });
     },
 });
