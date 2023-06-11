@@ -4,12 +4,25 @@ import axios from "axios";
 
 const USERS_URL = "http://localhost:3000/auth";
 
-const initialState = { user: {}, users: [], status: "idle", error: null };
+const initialState = {
+    user: {},
+    users: [],
+    status: "idle",
+    error: null,
+    userToEdit: {},
+};
 
 export const fetchAllUsers = createAsyncThunk(
     "users/fetchAllUsers",
     async () => {
         const response = await axios.get(`${USERS_URL}/getUsers`);
+        return response.data;
+    }
+);
+export const fetchUserById = createAsyncThunk(
+    "user/fetchUserById",
+    async id => {
+        const response = await axios.get(`${USERS_URL}/${id}`);
         return response.data;
     }
 );
@@ -38,6 +51,11 @@ const userSlice = createSlice({
         userAdded: {
             async reducer(state, action) {
                 state.users.push(action.payload);
+            },
+        },
+        userById: {
+            async reduce(state, action) {
+                state.userToEdit = action.payload;
             },
         },
     },
@@ -69,6 +87,12 @@ const userSlice = createSlice({
                 state.users.push(action.payload);
             })
             .addCase(addUser.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+            .addCase(fetchUserById.fulfilled, (state, action) => {
+                state.userToEdit = action.payload;
+            })
+            .addCase(fetchUserById.rejected, (state, action) => {
                 state.error = action.error.message;
             });
     },

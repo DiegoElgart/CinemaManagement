@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers, fetchAllUsers } from "../slices/users/usersSlice";
 import { useEffect, useState } from "react";
 import { addUser } from "../slices/users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccountPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const users = useSelector(getAllUsers);
     const [formData, setFormData] = useState("");
@@ -17,9 +19,14 @@ const CreateAccountPage = () => {
         }));
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        dispatch(addUser(formData));
+        const result = await dispatch(addUser(formData));
+        if (result.meta.requestStatus === "rejected") {
+            alert("Need to set up password");
+        } else {
+            navigate("/");
+        }
     };
 
     useEffect(() => {

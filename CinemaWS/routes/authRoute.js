@@ -18,6 +18,16 @@ router.route("/getUsers").get(async (req, res) => {
     }
 });
 
+router.route("/:id").get(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await userBLL.getUserById(id);
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 router.route("/login").post(async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -40,31 +50,26 @@ router.route("/login").post(async (req, res) => {
 
 router.route("/signUp").post(async (req, res) => {
     try {
-        const { fname, lname, sessionTimeOut, username, password } = req.body;
-        const checkIfUser = await User.findOne({ username: username });
-        if (checkIfUser && !checkIfUser.password && password !== "") {
-            const hashPassword = await bcrypt.hash(password, saltRounds);
-            checkIfUser.password = hashPassword;
-            checkIfUser.save();
-            res.json("User password updated!");
-        } else if (!checkIfUser) {
-            const user = new User({ username });
-            await user.save();
-            const prepareUserForJson = {
-                _id: user._id,
-                fname,
-                lname,
-                createdDate: new Date(),
-                sessionTimeOut,
-            };
-            await userBLL.setUsers(prepareUserForJson);
-            res.status(201).json("created");
+        const { username, password } = req.body;
+        const user = {
+            username,
+            password,
+        };
+
+        const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
+
+        if (!result) {
+            res.status(401).json("no username or password");
         } else {
-            res.json("User already registered! Try to log in");
+            res.status(200).json(result);
         }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+});
+
+router.route("/:id").get(async (req, res) => {
+    const { id } = req.params;
 });
 
 module.exports = router;

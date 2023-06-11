@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllUsers, getAllUsers } from "../slices/users/usersSlice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UsersPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const users = useSelector(getAllUsers);
 
@@ -25,8 +27,14 @@ const UsersPage = () => {
                             <h4>Created data: {user.createdDate}</h4>
                         </span>
                         <span className='button-container'>
-                            <button className='button'>Edit</button>
-                            <button className='button'>Edit</button>
+                            <button
+                                className='button'
+                                onClick={() =>
+                                    navigate(`/edit-user/${user._id}`)
+                                }>
+                                Edit
+                            </button>
+                            <button className='button'>Delete</button>
                         </span>
                     </div>
                 );
