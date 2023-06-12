@@ -19,4 +19,20 @@ const setPermissions = async obj => {
     const result = await permissionsDAL.setPermissions(data);
     return result;
 };
-module.exports = { getPermissions, setPermissions, getPermissionById };
+
+const updatePermissionsById = async (id, obj) => {
+    const { permissions } = await getPermissions();
+    const index = permissions.findIndex(permission => permission._id === id);
+    if (index !== -1) {
+        permissions[index] = { _id: id, permissions: obj };
+        const data = { permissions };
+        const result = await permissionsDAL.setPermissions(data);
+        return result;
+    }
+};
+module.exports = {
+    getPermissions,
+    setPermissions,
+    getPermissionById,
+    updatePermissionsById,
+};

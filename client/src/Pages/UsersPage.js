@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 const UsersPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const users = useSelector(getAllUsers);
-
+    const { users } = useSelector(getAllUsers);
     useEffect(() => {
         dispatch(fetchAllUsers());
     }, []);

@@ -1,11 +1,9 @@
-// usersSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const USERS_URL = "http://localhost:3000/auth";
+const USERS_URL = "http://localhost:3000/user";
 
 const initialState = {
-    user: {},
     users: [],
     status: "idle",
     error: null,
@@ -31,6 +29,11 @@ export const addUser = createAsyncThunk("users/addUser", async newUser => {
     return response.data;
 });
 
+export const updateUser = createAsyncThunk(
+    "user/updateUser",
+    async updatedUser => {}
+);
+
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
     const response = await axios.post(`${USERS_URL}/login`, loginData);
     localStorage.setItem("accessToken", response.data.accessToken);
@@ -42,12 +45,9 @@ export const logout = createAsyncThunk("user/logout", async () => {
 });
 
 const userSlice = createSlice({
-    name: "user",
+    name: "users",
     initialState,
     reducers: {
-        usersLogin: (state, action) => {
-            state = action.payload;
-        },
         userAdded: {
             async reducer(state, action) {
                 state.users.push(action.payload);
@@ -61,27 +61,12 @@ const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(loginUser.pending, (state, action) => {
-                state.status = "loading";
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.status = "succeeded";
-                state.user = action.payload;
-            })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error.message;
-            })
             .addCase(fetchAllUsers.pending, (state, action) => {
                 state.status = "loading all users";
             })
             .addCase(fetchAllUsers.fulfilled, (state, action) => {
                 state.status = "succeeded fetching all users";
-                state.users = action.payload;
-            })
-            .addCase(logout.fulfilled, (state, action) => {
-                state.status = "idle";
-                state.user = {};
+                state.users = [...action.payload];
             })
             .addCase(addUser.fulfilled, (state, action) => {
                 state.users.push(action.payload);
@@ -98,9 +83,7 @@ const userSlice = createSlice({
     },
 });
 
-export const selectUser = state => state.user.user;
-export const getUserStatus = state => state.user.status;
-export const getUsersError = state => state.user.error;
-export const getAllUsers = state => state.user.users;
+export const getAllUsers = state => state.users;
+export const getUserById = state => state.userToEdit;
 
 export default userSlice.reducer;

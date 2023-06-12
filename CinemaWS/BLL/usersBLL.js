@@ -29,9 +29,27 @@ const getUserById = async id => {
     };
     return user;
 };
+const updateUser = async (id, obj) => {
+    const userDb = await User.findByIdAndUpdate(id, { username: obj.username });
+    userDb.save();
+    const { users } = await usersDAL.getUsers();
+
+    const user = users.find(user => user._id === id);
+    user.fname = obj.fname;
+    user.lname = obj.lname;
+    user.sessionTimeOut = obj.sessionTimeOut;
+    const index = users.findIndex(user => user._id === id);
+    if (index !== -1) {
+        users[index] = user;
+        const data = { users };
+        await usersDAL.setUsers(data);
+    }
+
+    await permissionsBLL.updatePermissionsById(id, obj.permissions);
+    return "User Updated!";
+};
 const setUsers = async obj => {
     const users = await getUsers();
-    console.log(users);
     users.push(obj);
     const data = { users };
     const result = await usersDAL.setUsers(data);
@@ -51,6 +69,7 @@ const checkIfUserExistsAndUpdatePassword = async obj => {
             createdDate: new Date(),
             sessionTimeOut: "",
         };
+        await permissionsBLL.setPermissions({ _id: id, permissions: [] });
         await setUsers(prepareUserForJson);
         return user;
     } else {
@@ -61,6 +80,7 @@ const checkIfUserExistsAndUpdatePassword = async obj => {
 module.exports = {
     getUsers,
     setUsers,
+    updateUser,
     checkIfUserExistsAndUpdatePassword,
     getUserById,
 };

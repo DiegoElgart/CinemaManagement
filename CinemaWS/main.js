@@ -10,6 +10,7 @@ const moviesRoutes = require("./routes/moviesRoute");
 const subscriptionsRoute = require("./routes/subscriptionsRoute");
 const authRouter = require("./routes/authRoute");
 const permissionRoute = require("./routes/permissionsRoute");
+const userRoute = require("./routes/userRoute");
 
 app.use(express.json());
 app.use(cors());
@@ -17,6 +18,7 @@ app.use(cors());
 connectDB();
 
 app.use("/auth", authRouter);
+app.use("/user", userRoute);
 app.use("/members", membersRoutes);
 app.use("/movies", moviesRoutes);
 app.use("/subscriptions", subscriptionsRoute);

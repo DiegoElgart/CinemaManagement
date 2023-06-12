@@ -2,10 +2,10 @@
     "users": [
         {
             "_id": "647b1dae7d8fc139a552f59f",
-            "fname": "Yehudit",
-            "lname": "Ravitz",
+            "fname": "Erik",
+            "lname": "Einstein",
             "createdDate": "2023-06-03T11:02:06.354Z",
-            "sessionTimeOut": 5
+            "sessionTimeOut": 99
         },
         {
             "_id": "647b1de9d6dbfb714372a991",
@@ -43,25 +43,11 @@
             "sessionTimeOut": 99
         },
         {
-            "_id": "647d9ae9f7b1a5fa5fa9706f",
-            "fname": "User4",
-            "lname": "Usuariosky ",
-            "createdDate": "2023-06-05T08:20:57.155Z",
-            "sessionTimeOut": 99
-        },
-        {
             "_id": "647db4d5440885568d1b96f8",
             "fname": "TestFE",
             "lname": "Fronti",
             "createdDate": "2023-06-05T10:11:33.539Z",
             "sessionTimeOut": 99
-        },
-        {
-            "_id": "6484277bc96d87cf257eb39d",
-            "fname": "",
-            "lname": "",
-            "createdDate": "2023-06-10T09:56:40.608Z",
-            "sessionTimeOut": ""
         }
     ]
 }

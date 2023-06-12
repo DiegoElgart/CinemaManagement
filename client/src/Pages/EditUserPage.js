@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 const EditUserPage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
+
     const [userToEdit, setUserToEdit] = useState({
         fname: "",
         lname: "",

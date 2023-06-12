@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
-    getUserStatus,
+    getaAuthStatus,
     loginUser,
     selectUser,
-} from "../slices/users/usersSlice";
+} from "../slices/users/authSlice";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -14,18 +14,18 @@ const LoginPage = () => {
     const [formData, setFormData] = useState({ username: "", password: "" });
     const { username, password } = formData;
 
-    const userStatus = useSelector(getUserStatus);
-    const user = useSelector(selectUser);
+    const authStatus = useSelector(getaAuthStatus);
+    const { user } = useSelector(selectUser);
 
     useEffect(() => {
-        if (userStatus === "succeeded") {
+        if (authStatus === "succeeded") {
             localStorage.setItem("accessToken", user.accessToken);
             navigate("/main");
-        } else if (userStatus === "failed") {
+        } else if (authStatus === "failed") {
             navigate("/");
             alert("wrong password or username");
         }
-    }, [userStatus, user, navigate]);
+    }, [authStatus, user, navigate]);
 
     const handleChange = e => {
         setFormData(prevState => ({
@@ -43,8 +43,6 @@ const LoginPage = () => {
                     password: formData.password,
                 })
             );
-
-            // navigate("/main");
         } catch (err) {
             console.log(err);
         }
