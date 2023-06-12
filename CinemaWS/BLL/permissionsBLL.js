@@ -1,8 +1,15 @@
 const permissionsDAL = require("../dal/permissionsDAL");
 
-const getPermissions = () => {
-    const { data: permissions } = permissionsDAL.getPermissions();
+const getPermissions = async () => {
+    const permissions = await permissionsDAL.getPermissions();
+
     return permissions;
+};
+
+const getPermissionById = async id => {
+    const allPermissions = await getPermissions();
+    const permission = allPermissions.permissions.find(per => per._id === id);
+    return permission.permissions;
 };
 
 const setPermissions = async obj => {
@@ -12,4 +19,4 @@ const setPermissions = async obj => {
     const result = await permissionsDAL.setPermissions(data);
     return result;
 };
-module.exports = { getPermissions, setPermissions };
+module.exports = { getPermissions, setPermissions, getPermissionById };

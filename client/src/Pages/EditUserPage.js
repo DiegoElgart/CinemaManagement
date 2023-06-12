@@ -12,7 +12,7 @@ const EditUserPage = () => {
         createdDate: "",
         username: "",
         sessionTimeOut: "",
-        permissions: ["View Subscriptions", "Create Subscriptions"],
+        permissions: [],
     });
 
     useEffect(() => {
@@ -30,8 +30,25 @@ const EditUserPage = () => {
         }));
     };
 
-    const handleSubmit = async e => {
+    const handleCheckboxChange = e => {
+        const { name, checked } = e.target;
+        setUserToEdit(prevState => {
+            const updatedPermissions = checked
+                ? [...prevState.permissions, name]
+                : prevState.permissions.filter(
+                      permission => permission !== name
+                  );
+
+            return {
+                ...prevState,
+                permissions: updatedPermissions,
+            };
+        });
+    };
+
+    const handleSubmit = e => {
         e.preventDefault();
+        // Perform the necessary update logic here
     };
 
     const timestamp = userToEdit.createdDate;
@@ -90,14 +107,77 @@ const EditUserPage = () => {
                         onChange={handleChange}
                     />
                 </div>
-                {userToEdit.permissions
-                    ? userToEdit.permissions.map((per, index) => (
-                          <div className='form-row' key={index}>
-                              <input type='checkbox' value={per} />
-                              <label>{per}</label>
-                          </div>
-                      ))
-                    : null}
+                <div>
+                    <label>Permissions:</label>
+                    <div className='container'>
+                        <label>
+                            View Subscriptions:{" "}
+                            <input
+                                type='checkbox'
+                                name='View Subscriptions'
+                                checked={userToEdit.permissions.includes(
+                                    "View Subscriptions"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label>
+                            Create Subscriptions:{" "}
+                            <input
+                                type='checkbox'
+                                name='Create Subscriptions'
+                                checked={userToEdit.permissions.includes(
+                                    "Create Subscriptions"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label>
+                            Delete Subscriptions:{" "}
+                            <input
+                                type='checkbox'
+                                name='Delete Subscriptions'
+                                checked={userToEdit.permissions.includes(
+                                    "Delete Subscriptions"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label>
+                            View Movies:{" "}
+                            <input
+                                type='checkbox'
+                                name='View Movies'
+                                checked={userToEdit.permissions.includes(
+                                    "View Movies"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label>
+                            Create Movies:{" "}
+                            <input
+                                type='checkbox'
+                                name='Create Movies'
+                                checked={userToEdit.permissions.includes(
+                                    "Create Movies"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label>
+                            Delete Movies:{" "}
+                            <input
+                                type='checkbox'
+                                name='Delete Movies'
+                                checked={userToEdit.permissions.includes(
+                                    "Delete Movies"
+                                )}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                    </div>
+                </div>
                 <div className='button-container'>
                     <button className='button'>Update</button>
                 </div>

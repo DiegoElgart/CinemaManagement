@@ -1,5 +1,6 @@
 const usersDAL = require("../DAL/usersDAL");
 const User = require("../models/userModel");
+const permissionsBLL = require("../BLL/permissionsBLL");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -17,12 +18,14 @@ const getUserById = async id => {
     const { users } = await usersDAL.getUsers();
     const jsonUser = users.find(user => user._id === id);
     const dbUser = await User.findById(id);
+    const permissions = await permissionsBLL.getPermissionById(id);
     const user = {
         fname: jsonUser.fname,
         lname: jsonUser.lname,
         createdDate: jsonUser.createdDate,
         username: dbUser.username,
         sessionTimeOut: jsonUser.sessionTimeOut,
+        permissions: permissions,
     };
     return user;
 };
