@@ -69,7 +69,11 @@ const checkIfUserExistsAndUpdatePassword = async obj => {
             createdDate: new Date(),
             sessionTimeOut: "",
         };
-        await permissionsBLL.setPermissions({ _id: id, permissions: [] });
+        await permissionsBLL.setPermissions({
+            _id: user.id,
+            permissions: [],
+        });
+
         await setUsers(prepareUserForJson);
         return user;
     } else {

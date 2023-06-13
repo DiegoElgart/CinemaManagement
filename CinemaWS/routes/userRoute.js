@@ -1,5 +1,4 @@
 const express = require("express");
-const User = require("../models/userModel");
 const userBLL = require("../bll/usersBLL");
 
 const router = express.Router();
@@ -32,7 +31,6 @@ router.route("/signUp").post(async (req, res) => {
         };
 
         const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
-
         if (!result) {
             res.status(401).json("no username or password");
         } else {

@@ -28,24 +28,24 @@ router.route("/login").post(async (req, res) => {
     }
 });
 
-router.route("/signUp").post(async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = {
-            username,
-            password,
-        };
+// router.route("/signUp").post(async (req, res) => {
+//     try {
+//         const { username, password } = req.body;
+//         const user = {
+//             username,
+//             password,
+//         };
 
-        const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
+//         const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
 
-        if (!result) {
-            res.status(401).json("no username or password");
-        } else {
-            res.status(200).json(result);
-        }
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+//         if (!result) {
+//             res.status(401).json("no username or password");
+//         } else {
+//             res.status(200).json(result);
+//         }
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 module.exports = router;

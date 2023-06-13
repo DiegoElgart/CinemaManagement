@@ -31,7 +31,13 @@ export const addUser = createAsyncThunk("users/addUser", async newUser => {
 
 export const updateUser = createAsyncThunk(
     "user/updateUser",
-    async updatedUser => {}
+    async updatedUser => {
+        const response = await axios.post(
+            `${USERS_URL}/${updatedUser._id}`,
+            updatedUser
+        );
+        return response.data;
+    }
 );
 
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
@@ -78,6 +84,17 @@ const userSlice = createSlice({
                 state.userToEdit = action.payload;
             })
             .addCase(fetchUserById.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                const index = state.users.findIndex(
+                    user => user._id === action.payload._id
+                );
+                if (index !== -1) {
+                    state.users[index] = action.payload;
+                }
+            })
+            .addCase(updateUser.rejected, (state, action) => {
                 state.error = action.error.message;
             });
     },

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchUserById } from "../slices/users/usersSlice";
+import { fetchUserById, updateUser } from "../slices/users/usersSlice";
 import { useParams } from "react-router-dom";
 
 const EditUserPage = () => {
@@ -49,7 +49,9 @@ const EditUserPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        // Perform the necessary update logic here
+        userToEdit._id = id;
+        console.log(userToEdit);
+        dispatch(updateUser(userToEdit));
     };
 
     const timestamp = userToEdit.createdDate;
@@ -180,7 +182,7 @@ const EditUserPage = () => {
                     </div>
                 </div>
                 <div className='button-container'>
-                    <button className='button'>Update</button>
+                    <button className='submit'>Update</button>
                 </div>
             </form>
         </div>
