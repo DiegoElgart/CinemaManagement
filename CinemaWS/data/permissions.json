@@ -10,6 +10,20 @@
                 "Create Movies",
                 "Delete Movies"
             ]
+        },
+        {
+            "_id": "6484279b2565d1fbd868aafe",
+            "permissions": [
+                "View Subscriptions",
+                "Create Subscriptions",
+                "Delete Subscriptions"
+            ]
+        },
+        {
+            "permissions": {
+                "_id": "6489f12cf4fc469b3187d819",
+                "permissions": []
+            }
         }
     ]
 }

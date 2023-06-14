@@ -29,7 +29,6 @@ router.route("/signUp").post(async (req, res) => {
             username,
             password,
         };
-
         const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
         if (!result) {
             res.status(401).json("no username or password");

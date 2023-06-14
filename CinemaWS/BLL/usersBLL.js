@@ -1,18 +1,27 @@
 const usersDAL = require("../DAL/usersDAL");
 const User = require("../models/userModel");
 const permissionsBLL = require("../BLL/permissionsBLL");
+const utils = require("../utils/dateFormatter");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const getUsers = async () => {
     const { users } = await usersDAL.getUsers();
     const dbUsers = await User.find();
-    const mergedUsers = users.map(async jsonUser => {
+    const permissions = await permissionsBLL.getPermissions();
+    const mergedUsers = users.map(jsonUser => {
         const matchginId = dbUsers.find(dbUser => dbUser._id === jsonUser._id);
-        const permission = await permissionsBLL.getPermissionById(matchginId);
-        return { ...jsonUser, ...matchginId, ...permission };
+
+        return { ...jsonUser, ...matchginId };
     });
-    return mergedUsers;
+    const fullUser = mergedUsers.map(user => {
+        const userPermission = permissions.find(
+            permision => permision._id === user._id
+        );
+
+        return { ...user, ...userPermission };
+    });
+    return fullUser;
 };
 
 const getUserById = async id => {
@@ -58,6 +67,7 @@ const setUsers = async obj => {
 };
 
 const checkIfUserExistsAndUpdatePassword = async obj => {
+    const date = utils.dateFormatter();
     const user = await User.findOne({ username: obj.username });
     if (obj.password && user.password === "") {
         const hashPassword = await bcrypt.hash(obj.password, saltRounds);
@@ -67,7 +77,7 @@ const checkIfUserExistsAndUpdatePassword = async obj => {
             _id: user._id,
             fname: "",
             lname: "",
-            createdDate: new Date(),
+            createdDate: date,
             sessionTimeOut: "",
         };
         await permissionsBLL.setPermissions({

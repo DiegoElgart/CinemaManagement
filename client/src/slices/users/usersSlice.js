@@ -101,6 +101,7 @@ const userSlice = createSlice({
 });
 
 export const getAllUsers = state => state.users;
-export const getUserById = state => state.userToEdit;
+
+export const getUserToEdit = state => state.users.userToEdit;
 
 export default userSlice.reducer;
