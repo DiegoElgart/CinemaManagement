@@ -1,52 +1,10 @@
 {
     "users": [
         {
-            "_id": "647b1dae7d8fc139a552f59f",
-            "fname": "Erik",
-            "lname": "Einstein",
-            "createdDate": "2023-06-03T11:02:06.354Z",
-            "sessionTimeOut": 99
-        },
-        {
             "_id": "647b1de9d6dbfb714372a991",
             "fname": "Administrator",
             "lname": "Admin",
             "createdDate": "2023-06-03T11:03:05.367Z",
-            "sessionTimeOut": 99
-        },
-        {
-            "_id": "647d7d9415d73bd1f62fae16",
-            "fname": "User",
-            "lname": "Userovski ",
-            "createdDate": "2023-06-05T06:15:48.346Z",
-            "sessionTimeOut": 99
-        },
-        {
-            "_id": "647d835f3903f42997c65759",
-            "fname": "User2",
-            "lname": "Userovski2 ",
-            "createdDate": "2023-06-05T06:40:31.473Z",
-            "sessionTimeOut": 99
-        },
-        {
-            "_id": "647d9289aec08a120746345b",
-            "fname": "User3",
-            "lname": "Usuario ",
-            "createdDate": "2023-06-05T07:45:13.275Z",
-            "sessionTimeOut": 99
-        },
-        {
-            "_id": "647d9a6151a80961f46529e1",
-            "fname": "User4",
-            "lname": "Usuariosky ",
-            "createdDate": "2023-06-05T08:18:41.351Z",
-            "sessionTimeOut": 99
-        },
-        {
-            "_id": "647db4d5440885568d1b96f8",
-            "fname": "TestFE",
-            "lname": "Fronti",
-            "createdDate": "2023-06-05T10:11:33.539Z",
             "sessionTimeOut": 99
         },
         {

@@ -7,9 +7,10 @@ const saltRounds = 10;
 const getUsers = async () => {
     const { users } = await usersDAL.getUsers();
     const dbUsers = await User.find();
-    const mergedUsers = users.map(jsonUser => {
+    const mergedUsers = users.map(async jsonUser => {
         const matchginId = dbUsers.find(dbUser => dbUser._id === jsonUser._id);
-        return { ...jsonUser, ...matchginId };
+        const permission = await permissionsBLL.getPermissionById(matchginId);
+        return { ...jsonUser, ...matchginId, ...permission };
     });
     return mergedUsers;
 };
