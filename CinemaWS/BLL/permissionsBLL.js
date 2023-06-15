@@ -2,7 +2,6 @@ const permissionsDAL = require("../DAL/permissionsDAL");
 
 const getPermissions = async () => {
     const { permissions } = await permissionsDAL.getPermissions();
-
     return permissions;
 };
 

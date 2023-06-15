@@ -28,7 +28,7 @@ const getUserById = async id => {
     const { users } = await usersDAL.getUsers();
     const jsonUser = users.find(user => user._id === id);
     const dbUser = await User.findById(id);
-    const permissions = await permissionsBLL.getPermissionById(id);
+    const { permissions } = await permissionsBLL.getPermissionById(id);
     const user = {
         fname: jsonUser.fname,
         lname: jsonUser.lname,

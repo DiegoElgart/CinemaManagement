@@ -21,8 +21,6 @@ const EditUserPage = () => {
         permissions: [],
     });
 
-    // const [userToEdit, setUserToEdit] = useState(null);
-
     useEffect(() => {
         dispatch(fetchUserById(id));
     }, [dispatch, id]);
@@ -42,18 +40,6 @@ const EditUserPage = () => {
 
     const handleCheckboxChange = e => {
         const { name, checked } = e.target;
-        setUserToEdit(prevState => {
-            const updatedPermissions = checked
-                ? [...prevState.permissions, name]
-                : prevState.permissions.filter(
-                      permission => permission !== name
-                  );
-
-            return {
-                ...prevState,
-                permissions: updatedPermissions,
-            };
-        });
     };
 
     const handleSubmit = e => {
@@ -120,54 +106,61 @@ const EditUserPage = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    {userToEdit.permissions ? (
-                        <div>
-                            <label>Permissions:</label>
-                            <div className='container'>
-                                <label>
-                                    View Subscriptions:{" "}
-                                    <input
-                                        type='checkbox'
-                                        name='View Subscriptions'
-                                        onChange={handleCheckboxChange}
-                                    />
-                                </label>
-                                <label>
-                                    Create Subscriptions:{" "}
-                                    <input
-                                        type='checkbox'
-                                        name='Create Subscriptions'
-                                        onChange={handleCheckboxChange}
-                                    />
-                                </label>
-                                <label>
-                                    Delete Subscriptions:{" "}
-                                    <input
-                                        type='checkbox'
-                                        name='Delete Subscriptions'
-                                    />
-                                </label>
-                                <label>
-                                    View Movies:{" "}
-                                    <input type='checkbox' name='View Movies' />
-                                </label>
-                                <label>
-                                    Create Movies:{" "}
-                                    <input
-                                        type='checkbox'
-                                        name='Create Movies'
-                                    />
-                                </label>
-                                <label>
-                                    Delete Movies:{" "}
-                                    <input
-                                        type='checkbox'
-                                        name='Delete Movies'
-                                    />
-                                </label>
-                            </div>
+
+                    <div>
+                        <label>Permissions:</label>
+                        <div className='container'>
+                            <label>
+                                View Subscriptions:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='viewSubscriptions'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
+                            <label>
+                                Create Subscriptions:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='createSubscriptions'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
+                            <label>
+                                Delete Subscriptions:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='deleteSubscriptions'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
+                            <label>
+                                View Movies:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='viewMovies'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
+                            <label>
+                                Create Movies:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='createMovies'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
+                            <label>
+                                Delete Movies:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='deleteMovies'
+                                    onChange={handleCheckboxChange}
+                                />
+                            </label>
                         </div>
-                    ) : null}
+                    </div>
+
                     <div className='button-container'>
                         <button className='submit'>Update</button>
                     </div>

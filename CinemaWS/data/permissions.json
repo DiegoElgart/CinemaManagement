@@ -3,27 +3,35 @@
         {
             "_id": "647b1de9d6dbfb714372a991",
             "permissions": [
-                "View Subscriptions",
-                "Create Subscriptions",
-                "Delete Subscriptions",
-                "View Movies",
-                "Create Movies",
-                "Delete Movies"
+                { "viewSubscriptions": true },
+                { "createSubscriptions": true },
+                { "deleteSubscriptions": true },
+                { "viewMovies": true },
+                { "createMovies": true },
+                { "deleteMovies": true }
             ]
         },
         {
             "_id": "6484279b2565d1fbd868aafe",
             "permissions": [
-                "View Subscriptions",
-                "Create Subscriptions",
-                "Delete Subscriptions"
+                { "viewSubscriptions": true },
+                { "createSubscriptions": true },
+                { "deleteSubscriptions": true },
+                { "viewMovies": false },
+                { "createMovies": false },
+                { "deleteMovies": false }
             ]
         },
         {
-            "permissions": {
-                "_id": "6489f12cf4fc469b3187d819",
-                "permissions": []
-            }
+            "_id": "6489f12cf4fc469b3187d819",
+            "permissions": [
+                { "viewSubscriptions": false },
+                { "createSubscriptions": false },
+                { "deleteSubscriptions": false },
+                { "viewMovies": false },
+                { "createMovies": false },
+                { "deleteMovies": false }
+            ]
         }
     ]
 }
