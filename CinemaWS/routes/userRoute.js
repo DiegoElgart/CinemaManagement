@@ -1,5 +1,6 @@
 const express = require("express");
 const userBLL = require("../bll/usersBLL");
+const User = require("../models/userModel");
 
 const router = express.Router();
 
@@ -22,6 +23,16 @@ router.route("/:id").get(async (req, res) => {
     }
 });
 
+router.route("/addUser").post(async (req, res) => {
+    try {
+        const user = req.body;
+        const result = await userBLL.addNewUser(user);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 router.route("/signUp").post(async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -29,6 +40,7 @@ router.route("/signUp").post(async (req, res) => {
             username,
             password,
         };
+
         const result = await userBLL.checkIfUserExistsAndUpdatePassword(user);
         if (!result) {
             res.status(401).json("no username or password");
@@ -44,7 +56,18 @@ router.route("/:id").post(async (req, res) => {
     try {
         const { id } = req.params;
         const obj = req.body;
+
         const result = await userBLL.updateUser(id, obj);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.route("/delete/:id").post(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await userBLL.deleteUser(id);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -24,8 +24,15 @@ export const fetchUserById = createAsyncThunk(
         return response.data;
     }
 );
+export const addPasswordToUser = createAsyncThunk(
+    "users/addPasswordToUser",
+    async newUser => {
+        const response = await axios.post(`${USERS_URL}/signUp`, newUser);
+        return response.data;
+    }
+);
 export const addUser = createAsyncThunk("users/addUser", async newUser => {
-    const response = await axios.post(`${USERS_URL}/signUp`, newUser);
+    const response = await axios.post(`${USERS_URL}/addUser`, newUser);
     return response.data;
 });
 
@@ -40,6 +47,13 @@ export const updateUser = createAsyncThunk(
     }
 );
 
+export const deleteUser = createAsyncThunk(
+    "user/deleteUser",
+    async deleteUser => {
+        const response = await axios.post(`${USERS_URL}/delete/${deleteUser}`);
+        return response.data;
+    }
+);
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {
     const response = await axios.post(`${USERS_URL}/login`, loginData);
     localStorage.setItem("accessToken", response.data.accessToken);
@@ -80,10 +94,22 @@ const userSlice = createSlice({
             .addCase(addUser.rejected, (state, action) => {
                 state.error = action.error.message;
             })
+            .addCase(addPasswordToUser.fulfilled, (state, action) => {
+                state.users.push(action.payload);
+            })
+            .addCase(addPasswordToUser.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
             .addCase(fetchUserById.fulfilled, (state, action) => {
+                state.status = "Succeeded fetching user by id";
                 state.userToEdit = action.payload;
             })
+            .addCase(fetchUserById.pending, (state, action) => {
+                state.status = "Pending fetching user by id";
+            })
             .addCase(fetchUserById.rejected, (state, action) => {
+                state.status = "Failed fetching user by id";
+
                 state.error = action.error.message;
             })
             .addCase(updateUser.fulfilled, (state, action) => {
@@ -96,6 +122,12 @@ const userSlice = createSlice({
             })
             .addCase(updateUser.rejected, (state, action) => {
                 state.error = action.error.message;
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.status = action.payload;
             });
     },
 });
@@ -103,5 +135,7 @@ const userSlice = createSlice({
 export const getAllUsers = state => state.users;
 
 export const getUserToEdit = state => state.users.userToEdit;
+
+export const getUserStatus = state => state.users.status;
 
 export default userSlice.reducer;

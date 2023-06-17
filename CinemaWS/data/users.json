@@ -5,20 +5,20 @@
             "fname": "Administrator",
             "lname": "Admin",
             "createdDate": "2023-06-03",
-            "sessionTimeOut": 99
+            "sessionTimeOut": "99"
         },
         {
             "_id": "6484279b2565d1fbd868aafe",
             "fname": "Matute",
             "lname": "Plomrik",
-            "createdDate": "2023-06-13",
-            "sessionTimeOut": "100"
+            "createdDate": "2023-06-17",
+            "sessionTimeOut": "999"
         },
         {
-            "_id": "6489f12cf4fc469b3187d819",
-            "fname": "Kal",
-            "lname": "El",
-            "createdDate": "2023-6-14",
+            "_id": "648ddf6be872d969c7569a45",
+            "fname": "Juan Roman",
+            "lname": "Riquelme",
+            "createdDate": "2023-06-17",
             "sessionTimeOut": "10"
         }
     ]

@@ -5,14 +5,16 @@ import {
     getUserToEdit,
     updateUser,
 } from "../slices/users/usersSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditUserPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const user = useSelector(getUserToEdit);
 
     const [userToEdit, setUserToEdit] = useState({
+        _id: id,
         fname: "",
         lname: "",
         createdDate: "",
@@ -20,14 +22,25 @@ const EditUserPage = () => {
         sessionTimeOut: "",
         permissions: [],
     });
+    const [userPermsissions, setUserPermissions] = useState([
+        {
+            viewSubscriptions: false,
+            createSubscriptions: false,
+            deleteSubscriptions: false,
+            viewMovies: false,
+            createMovies: false,
+            deleteMovies: false,
+        },
+    ]);
 
     useEffect(() => {
         dispatch(fetchUserById(id));
     }, [dispatch, id]);
 
     useEffect(() => {
-        if (user) {
+        if (user && user.permissions) {
             setUserToEdit(user);
+            setUserPermissions(user.permissions);
         }
     }, [user]);
 
@@ -40,21 +53,28 @@ const EditUserPage = () => {
 
     const handleCheckboxChange = e => {
         const { name, checked } = e.target;
+        setUserPermissions(prevState =>
+            prevState.map(permission => {
+                return {
+                    ...permission,
+                    [name]: checked,
+                };
+            })
+        );
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        userToEdit._id = id;
-        console.log(userToEdit);
-        dispatch(updateUser(userToEdit));
-    };
 
-    const timestamp = userToEdit.createdDate;
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const formattedDate = `${year}-${month}-${day}`;
+        const userToDispatch = {
+            _id: id,
+            ...userToEdit,
+            permissions: userPermsissions,
+        };
+        dispatch(updateUser(userToDispatch));
+        alert("User Updated");
+        navigate("/manage-users/users");
+    };
 
     return (
         <div className='container'>
@@ -85,7 +105,7 @@ const EditUserPage = () => {
                             name='createdDate'
                             type='date'
                             disabled
-                            defaultValue={formattedDate}
+                            defaultValue={userToEdit.createdDate}
                         />
                     </div>
                     <div className='form-row'>
@@ -109,6 +129,7 @@ const EditUserPage = () => {
 
                     <div>
                         <label>Permissions:</label>
+
                         <div className='container'>
                             <label>
                                 View Subscriptions:{" "}
@@ -116,6 +137,9 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='viewSubscriptions'
                                     onChange={handleCheckboxChange}
+                                    checked={
+                                        userPermsissions[0].viewSubscriptions
+                                    }
                                 />
                             </label>
                             <label>
@@ -124,6 +148,9 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='createSubscriptions'
                                     onChange={handleCheckboxChange}
+                                    checked={
+                                        userPermsissions[0].createSubscriptions
+                                    }
                                 />
                             </label>
                             <label>
@@ -132,6 +159,9 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='deleteSubscriptions'
                                     onChange={handleCheckboxChange}
+                                    checked={
+                                        userPermsissions[0].deleteSubscriptions
+                                    }
                                 />
                             </label>
                             <label>
@@ -140,6 +170,7 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='viewMovies'
                                     onChange={handleCheckboxChange}
+                                    checked={userPermsissions[0].viewMovies}
                                 />
                             </label>
                             <label>
@@ -148,6 +179,7 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='createMovies'
                                     onChange={handleCheckboxChange}
+                                    checked={userPermsissions[0].createMovies}
                                 />
                             </label>
                             <label>
@@ -156,6 +188,7 @@ const EditUserPage = () => {
                                     type='checkbox'
                                     name='deleteMovies'
                                     onChange={handleCheckboxChange}
+                                    checked={userPermsissions[0].deleteMovies}
                                 />
                             </label>
                         </div>
@@ -163,6 +196,12 @@ const EditUserPage = () => {
 
                     <div className='button-container'>
                         <button className='submit'>Update</button>
+                        <input
+                            type='button'
+                            name='Cancel'
+                            value='Cancel'
+                            onClick={e => navigate("/manage-users/users")}
+                        />
                     </div>
                 </form>
             ) : null}

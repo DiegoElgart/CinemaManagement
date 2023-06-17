@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllUsers, getAllUsers } from "../slices/users/usersSlice";
+import {
+    fetchAllUsers,
+    getAllUsers,
+    deleteUser,
+} from "../slices/users/usersSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,9 +11,15 @@ const UsersPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { users } = useSelector(getAllUsers);
+
     useEffect(() => {
         dispatch(fetchAllUsers());
-    }, []);
+    }, [dispatch]);
+
+    const handleDelete = userId => {
+        dispatch(deleteUser(userId));
+        navigate("/manage-users", { replace: true });
+    };
 
     return (
         <div className='main-page'>
@@ -29,11 +39,17 @@ const UsersPage = () => {
                             <button
                                 className='button'
                                 onClick={() =>
-                                    navigate(`/edit-user/${user._id}`)
+                                    navigate(
+                                        `/manage-users/edit-user/${user._id}`
+                                    )
                                 }>
                                 Edit
                             </button>
-                            <button className='button'>Delete</button>
+                            <button
+                                className='button'
+                                onClick={() => handleDelete(user._id)}>
+                                Delete
+                            </button>
                         </span>
                     </div>
                 );

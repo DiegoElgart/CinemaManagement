@@ -3,34 +3,40 @@
         {
             "_id": "647b1de9d6dbfb714372a991",
             "permissions": [
-                { "viewSubscriptions": true },
-                { "createSubscriptions": true },
-                { "deleteSubscriptions": true },
-                { "viewMovies": true },
-                { "createMovies": true },
-                { "deleteMovies": true }
+                {
+                    "viewSubscriptions": true,
+                    "createSubscriptions": true,
+                    "deleteSubscriptions": true,
+                    "viewMovies": true,
+                    "createMovies": true,
+                    "deleteMovies": true
+                }
             ]
         },
         {
             "_id": "6484279b2565d1fbd868aafe",
             "permissions": [
-                { "viewSubscriptions": true },
-                { "createSubscriptions": true },
-                { "deleteSubscriptions": true },
-                { "viewMovies": false },
-                { "createMovies": false },
-                { "deleteMovies": false }
+                {
+                    "viewSubscriptions": true,
+                    "createSubscriptions": false,
+                    "deleteSubscriptions": false,
+                    "viewMovies": true,
+                    "createMovies": false,
+                    "deleteMovies": false
+                }
             ]
         },
         {
-            "_id": "6489f12cf4fc469b3187d819",
+            "_id": "648ddf6be872d969c7569a45",
             "permissions": [
-                { "viewSubscriptions": false },
-                { "createSubscriptions": false },
-                { "deleteSubscriptions": false },
-                { "viewMovies": false },
-                { "createMovies": false },
-                { "deleteMovies": false }
+                {
+                    "viewSubscriptions": true,
+                    "createSubscriptions": false,
+                    "deleteSubscriptions": false,
+                    "viewMovies": true,
+                    "createMovies": false,
+                    "deleteMovies": false
+                }
             ]
         }
     ]

@@ -6,6 +6,8 @@ import ManageUsersPage from "./Pages/ManageUsersPage";
 import UsersPage from "./Pages/UsersPage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
 import EditUserPage from "./Pages/EditUserPage";
+import MoviesPage from "./Pages/MoviesPage";
+import AddUserPage from "./Pages/AddUserPage";
 
 function App() {
     return (
@@ -14,9 +16,18 @@ function App() {
                 <Route path='/' element={<LoginPage />} />
                 <Route path='/main' element={<MainPage />} />
                 <Route path='/register' element={<CreateAccountPage />} />
-                <Route path='/manage-users' element={<ManageUsersPage />} />
-                <Route path='/users' element={<UsersPage />} />
-                <Route path='/edit-user/:id' element={<EditUserPage />} />
+                <Route path='/manage-users' element={<ManageUsersPage />}>
+                    <Route path='/manage-users/users' element={<UsersPage />} />
+                    <Route
+                        path='/manage-users/edit-user/:id'
+                        element={<EditUserPage />}
+                    />
+                    <Route
+                        path='/manage-users/addUser'
+                        element={<AddUserPage />}
+                    />
+                </Route>
+                <Route path='/movies' element={<MoviesPage />} />
             </Routes>
         </main>
     );
