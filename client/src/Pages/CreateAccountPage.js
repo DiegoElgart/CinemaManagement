@@ -1,17 +1,12 @@
-import { useSelector, useDispatch } from "react-redux";
-import {
-    getAllUsers,
-    fetchAllUsers,
-    addPasswordToUser,
-} from "../slices/users/usersSlice";
+import { useDispatch } from "react-redux";
+import { fetchAllUsers, addPasswordToUser } from "../slices/users/usersSlice";
 import { useEffect, useState } from "react";
-import { addUser } from "../slices/users/usersSlice";
 import { useNavigate } from "react-router-dom";
 
 const CreateAccountPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const users = useSelector(getAllUsers);
+
     const [formData, setFormData] = useState("");
 
     const { username, password } = formData;

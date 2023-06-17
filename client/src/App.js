@@ -8,6 +8,8 @@ import CreateAccountPage from "./Pages/CreateAccountPage";
 import EditUserPage from "./Pages/EditUserPage";
 import MoviesPage from "./Pages/MoviesPage";
 import AddUserPage from "./Pages/AddUserPage";
+import AddMoviePage from "./Pages/AddMoviePage";
+import ManageMoviesPage from "./Pages/ManageMoviesPage";
 
 function App() {
     return (
@@ -28,6 +30,7 @@ function App() {
                     />
                 </Route>
                 <Route path='/movies' element={<MoviesPage />} />
+                <Route path='/addMovie' element={<AddMoviePage />} />
             </Routes>
         </main>
     );

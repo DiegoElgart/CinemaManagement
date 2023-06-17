@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-const ManageUsersPage = () => {
+const ManageMoviesPage = () => {
     const navigate = useNavigate();
 
     const handleUsersClick = path => {
@@ -9,14 +9,15 @@ const ManageUsersPage = () => {
     };
     return (
         <div className='main-page'>
-            <h1>Manage Users</h1>
+            <h1>Manage Movies</h1>
             <div className='button-container'>
-                <button onClick={() => handleUsersClick("/manage-users/users")}>
-                    All Users
+                <button
+                    onClick={() => handleUsersClick("/manage-movies/movies")}>
+                    All Movies
                 </button>
                 <button
-                    onClick={() => handleUsersClick("/manage-users/AddUser")}>
-                    Add User
+                    onClick={() => handleUsersClick("/manage-movies/addMovie")}>
+                    Add Movie
                 </button>
             </div>
             <Outlet />
@@ -24,4 +25,4 @@ const ManageUsersPage = () => {
     );
 };
 
-export default ManageUsersPage;
+export default ManageMoviesPage;
