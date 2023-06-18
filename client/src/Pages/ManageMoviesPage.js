@@ -11,12 +11,10 @@ const ManageMoviesPage = () => {
         <div className='main-page'>
             <h1>Manage Movies</h1>
             <div className='button-container'>
-                <button
-                    onClick={() => handleUsersClick("/manage-movies/movies")}>
+                <button onClick={() => handleUsersClick("/movies/allmovies")}>
                     All Movies
                 </button>
-                <button
-                    onClick={() => handleUsersClick("/manage-movies/addMovie")}>
+                <button onClick={() => handleUsersClick("/movies/addMovie")}>
                     Add Movie
                 </button>
             </div>

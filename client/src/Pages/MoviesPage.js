@@ -47,10 +47,9 @@ const MoviesPage = () => {
 
     return (
         <div className='movies-container'>
-            <h1>Movies</h1>
             <div className='button-container'>
-                <button onClick={handleAllMovies}>All Movies</button>
-                <button onClick={() => navigate("/addMovie")}>Add Movie</button>
+                <button onClick={handleAllMovies}>Show All Movies</button>
+
                 <label>Find Movie: </label>
                 <input id='find' onChange={handleChange} />
                 <button onClick={handleFind}>Find</button>
@@ -75,7 +74,13 @@ const MoviesPage = () => {
                             className='movie-image'
                         />
                         <div className='movie-buttons'>
-                            <button className='movie-button'>Edit</button>
+                            <button
+                                className='movie-button'
+                                onClick={() =>
+                                    navigate(`/movies/edit/${movie._id}`)
+                                }>
+                                Edit
+                            </button>
                             <button className='movie-button'>Delete</button>
                         </div>
                     </div>

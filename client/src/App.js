@@ -10,6 +10,7 @@ import MoviesPage from "./Pages/MoviesPage";
 import AddUserPage from "./Pages/AddUserPage";
 import AddMoviePage from "./Pages/AddMoviePage";
 import ManageMoviesPage from "./Pages/ManageMoviesPage";
+import EditMoviePage from "./Pages/EditMoviePage";
 
 function App() {
     return (
@@ -29,8 +30,14 @@ function App() {
                         element={<AddUserPage />}
                     />
                 </Route>
-                <Route path='/movies' element={<MoviesPage />} />
-                <Route path='/addMovie' element={<AddMoviePage />} />
+                <Route path='/movies' element={<ManageMoviesPage />}>
+                    <Route path='/movies/allmovies' element={<MoviesPage />} />
+                    <Route path='/movies/addMovie' element={<AddMoviePage />} />
+                    <Route
+                        path='/movies/edit/:id'
+                        element={<EditMoviePage />}
+                    />
+                </Route>
             </Routes>
         </main>
     );

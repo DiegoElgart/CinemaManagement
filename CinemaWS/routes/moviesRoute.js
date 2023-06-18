@@ -25,7 +25,7 @@ router.route("/:id").get(async (req, res) => {
 router.route("/new").post(async (req, res) => {
     try {
         const obj = req.body;
-        console.log(obj);
+
         const result = await moviesBLL.addMovie(obj);
         res.json(result);
     } catch (err) {
