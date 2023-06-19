@@ -1,8 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
-import { all } from "axios";
+import {
+    deleteMovie,
+    fetchMovies,
+    selectAllMovies,
+} from "../slices/movies/moviesSlice";
+import SubscriptionsComponent from "../Components/SubscriptionsComponent";
 const MoviesPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -44,7 +48,10 @@ const MoviesPage = () => {
 
         setMovies(allMovies);
     };
-
+    const handleDelete = id => {
+        dispatch(deleteMovie(id));
+        window.location.reload();
+    };
     return (
         <div className='movies-container'>
             <div className='button-container'>
@@ -73,6 +80,7 @@ const MoviesPage = () => {
                             alt={movie.name}
                             className='movie-image'
                         />
+                        <SubscriptionsComponent movieId={movie._id} />
                         <div className='movie-buttons'>
                             <button
                                 className='movie-button'
@@ -81,7 +89,11 @@ const MoviesPage = () => {
                                 }>
                                 Edit
                             </button>
-                            <button className='movie-button'>Delete</button>
+                            <button
+                                className='movie-button'
+                                onClick={() => handleDelete(movie._id)}>
+                                Delete
+                            </button>
                         </div>
                     </div>
                 );

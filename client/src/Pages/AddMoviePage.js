@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addNewMovie } from "../slices/movies/moviesSlice";
+import {
+    addNewMovie,
+    fetchMovies,
+    getMoviesStatus,
+} from "../slices/movies/moviesSlice";
 import { useNavigate } from "react-router-dom";
 
 const AddMoviePage = () => {
     const dispatch = useDispatch();
+    const addMovieStatus = useSelector(getMoviesStatus);
     const navigate = useNavigate();
 
     const [movieToAdd, setMovieToAdd] = useState({
@@ -28,13 +33,13 @@ const AddMoviePage = () => {
         setInputValue(value);
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         let separatedWords = [];
 
         if (inputValue.includes(",")) {
-            separatedWords = inputValue.split(", ");
+            separatedWords = inputValue.split(",");
         } else {
             separatedWords = inputValue.split(" ");
         }
@@ -42,14 +47,19 @@ const AddMoviePage = () => {
         setWords(prevWords => [...prevWords, ...separatedWords]);
         setInputValue("");
 
+        const dateString = movieToAdd.premiered;
+        const dateTime = new Date(dateString);
+        const modifiedDateString = dateTime.toISOString();
+
         const newMovie = {
             name: movieToAdd.name,
-            genres: words,
+            genres: separatedWords,
             image: movieToAdd.image,
-            premiered: movieToAdd.premiered,
+            premiered: modifiedDateString,
         };
 
-        dispatch(addNewMovie(newMovie));
+        await dispatch(addNewMovie(newMovie));
+        alert("Movie Created");
         navigate("/movies/allmovies");
     };
 

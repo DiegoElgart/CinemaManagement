@@ -42,6 +42,11 @@ export const updateMovie = createAsyncThunk(
     }
 );
 
+export const deleteMovie = createAsyncThunk("movie/deleteMovie", async id => {
+    const response = await axios.post(`${MOVIES_URL}/${id}/delete`);
+    return response.data;
+});
+
 const moviesSlice = createSlice({
     name: "movies",
     initialState,
@@ -68,18 +73,20 @@ const moviesSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(fetchMovies.fulfilled, (state, action) => {
-                state.status = "succeeded";
+                state.status = "succeeded fetching all movies";
                 state.movies = action.payload;
+                state.movieToEdit = {};
             })
             .addCase(fetchMovies.rejected, (state, action) => {
-                state.status = "failed";
+                state.status = "failed fetching all movies";
                 state.error = action.error.message;
             })
             .addCase(addNewMovie.fulfilled, (state, action) => {
+                state.status = "Added New Movie";
                 state.movies.push(action.payload);
             })
             .addCase(addNewMovie.rejected, (state, action) => {
-                state.status = "failed";
+                state.status = "failed adding new movie";
                 state.error = action.payload.message;
             })
             .addCase(fetchMovieById.fulfilled, (state, action) => {
@@ -91,8 +98,15 @@ const moviesSlice = createSlice({
                 state.movieToEdit = action.payload;
             })
             .addCase(fetchMovieById.rejected, (state, action) => {
-                state.status = "failed";
+                state.status = "failed fetching movie by id";
                 state.error = action.payload.message;
+            })
+            .addCase(deleteMovie.fulfilled, (state, action) => {
+                state.status = "Succeeded Deleting movie";
+                const movies = state.movies.filter(
+                    movie => movie._id === action.payload._id
+                );
+                state.movies = movies;
             });
     },
 });

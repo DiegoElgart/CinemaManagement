@@ -27,9 +27,11 @@ const EditUserPage = () => {
             viewSubscriptions: false,
             createSubscriptions: false,
             deleteSubscriptions: false,
+            updateSubscriptions: false,
             viewMovies: false,
             createMovies: false,
             deleteMovies: false,
+            updateMovies: false,
         },
     ]);
 
@@ -53,12 +55,37 @@ const EditUserPage = () => {
 
     const handleCheckboxChange = e => {
         const { name, checked } = e.target;
+
         setUserPermissions(prevState =>
             prevState.map(permission => {
-                return {
-                    ...permission,
-                    [name]: checked,
-                };
+                if (
+                    (name === "createSubscriptions" ||
+                        name === "updateSubscriptions" ||
+                        name === "deleteSubscriptions") &&
+                    checked
+                ) {
+                    return {
+                        ...permission,
+                        viewSubscriptions: true,
+                        [name]: checked,
+                    };
+                } else if (
+                    (name === "createMovies" ||
+                        name === "deleteMovies" ||
+                        name === "updateMovies") &&
+                    checked
+                ) {
+                    return {
+                        ...permission,
+                        viewMovies: true,
+                        [name]: checked,
+                    };
+                } else {
+                    return {
+                        ...permission,
+                        [name]: checked,
+                    };
+                }
             })
         );
     };
@@ -165,6 +192,17 @@ const EditUserPage = () => {
                                 />
                             </label>
                             <label>
+                                Delete Subscriptions:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='updateSubscriptions'
+                                    onChange={handleCheckboxChange}
+                                    checked={
+                                        userPermsissions[0].updateSubscriptions
+                                    }
+                                />
+                            </label>
+                            <label>
                                 View Movies:{" "}
                                 <input
                                     type='checkbox'
@@ -189,6 +227,15 @@ const EditUserPage = () => {
                                     name='deleteMovies'
                                     onChange={handleCheckboxChange}
                                     checked={userPermsissions[0].deleteMovies}
+                                />
+                            </label>
+                            <label>
+                                Delete Movies:{" "}
+                                <input
+                                    type='checkbox'
+                                    name='updateMovies'
+                                    onChange={handleCheckboxChange}
+                                    checked={userPermsissions[0].updateMovies}
                                 />
                             </label>
                         </div>

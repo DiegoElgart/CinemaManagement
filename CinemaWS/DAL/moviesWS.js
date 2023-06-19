@@ -7,7 +7,8 @@ const getAllMovies = () => {
 };
 
 const addMovie = async obj => {
-    return await axios.post(`${URL}/new`, obj);
+    const result = await axios.post(`${URL}/new`, obj);
+    return result.data;
 };
 const updateMovie = async (id, obj) => {
     return await axios.post(`${URL}/${id}`, obj);

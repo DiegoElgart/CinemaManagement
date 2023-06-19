@@ -11,6 +11,7 @@ import AddUserPage from "./Pages/AddUserPage";
 import AddMoviePage from "./Pages/AddMoviePage";
 import ManageMoviesPage from "./Pages/ManageMoviesPage";
 import EditMoviePage from "./Pages/EditMoviePage";
+import SubscriptionsPage from "./Pages/SubscriptionsPage";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                         element={<EditMoviePage />}
                     />
                 </Route>
+                <Route path='/subscriptions' element={<SubscriptionsPage />} />
             </Routes>
         </main>
     );

@@ -12,7 +12,7 @@ const EditMoviePage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const movie = useSelector(getMovieToEdit);
-    console.log(movie);
+
     const [inputValue, setInputValue] = useState("");
     const [movieToEdit, setMovieToEdit] = useState({
         name: "",
@@ -24,7 +24,8 @@ const EditMoviePage = () => {
 
     useEffect(() => {
         dispatch(fetchMovieById(id));
-    }, [id]);
+    }, [dispatch, id]);
+
     useEffect(() => {
         if (movie) {
             setMovieToEdit(movie);
@@ -82,7 +83,8 @@ const EditMoviePage = () => {
         };
         console.log(updatedMovie);
         dispatch(updateMovie(updatedMovie));
-        //navigate("/movies/allmovies");
+        alert("Movie Updated");
+        navigate("/movies/allmovies");
     };
     return (
         <div className='container'>
@@ -94,7 +96,7 @@ const EditMoviePage = () => {
                         type='text'
                         id='name'
                         name='name'
-                        defaultValue={movie.name}
+                        defaultValue={movieToEdit.name}
                         onChange={handleChange}
                     />
                     <label>Genres:</label>

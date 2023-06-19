@@ -13,8 +13,8 @@ const getMovieById = async id => {
 };
 
 const addMovie = async obj => {
-    await moviesDAL.addMovie(obj);
-    return "Movie Added!";
+    const result = await moviesDAL.addMovie(obj);
+    return result;
 };
 
 const updateMovie = async (id, obj) => {

@@ -36,7 +36,7 @@ const addMovie = async obj => {
     }
     const movie = new Movie(obj);
     await movie.save();
-    return "Movie Created";
+    return movie;
 };
 
 const updateMovie = async (id, obj) => {

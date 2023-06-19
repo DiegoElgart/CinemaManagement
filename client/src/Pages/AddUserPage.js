@@ -23,9 +23,11 @@ const AddUserPage = () => {
                 viewSubscriptions: false,
                 createSubscriptions: false,
                 deleteSubscriptions: false,
+                updateSubscriptions: false,
                 viewMovies: false,
                 createMovies: false,
                 deleteMovies: false,
+                updateMovies: false,
             },
         ],
     });
@@ -38,25 +40,32 @@ const AddUserPage = () => {
 
     const handleChange = e => {
         const { name, value, type, checked } = e.target;
-
         if (type === "checkbox") {
-            if (name === "createSubscriptions" && checked) {
+            if (
+                (name === "createSubscriptions" ||
+                    name === "updateSubscriptions" ||
+                    name === "deleteSubscriptions") &&
+                checked
+            ) {
                 setUserToAdd(prevState => ({
                     ...prevState,
                     permissions: prevState.permissions.map(permission => ({
                         ...permission,
                         viewSubscriptions: true,
-                        deleteSubscriptions: true,
                         [name]: checked,
                     })),
                 }));
-            } else if (name === "createMovies" && checked) {
+            } else if (
+                (name === "createMovies" ||
+                    name === "deleteMovies" ||
+                    name === "updateMovies") &&
+                checked
+            ) {
                 setUserToAdd(prevState => ({
                     ...prevState,
                     permissions: prevState.permissions.map(permission => ({
                         ...permission,
                         viewMovies: true,
-                        deleteMovies: true,
                         [name]: checked,
                     })),
                 }));
@@ -145,6 +154,17 @@ const AddUserPage = () => {
                             />
                         </label>
                         <label>
+                            Update Subscriptions:{" "}
+                            <input
+                                type='checkbox'
+                                name='updateSubscriptions'
+                                onChange={handleChange}
+                                checked={
+                                    userToAdd.permissions[0].updateSubscriptions
+                                }
+                            />
+                        </label>
+                        <label>
                             View Movies:{" "}
                             <input
                                 type='checkbox'
@@ -169,6 +189,15 @@ const AddUserPage = () => {
                                 name='deleteMovies'
                                 onChange={handleChange}
                                 checked={userToAdd.permissions[0].deleteMovies}
+                            />
+                        </label>
+                        <label>
+                            Update Movies:{" "}
+                            <input
+                                type='checkbox'
+                                name='updateMovies'
+                                onChange={handleChange}
+                                checked={userToAdd.permissions[0].updateMovies}
                             />
                         </label>
                     </div>
