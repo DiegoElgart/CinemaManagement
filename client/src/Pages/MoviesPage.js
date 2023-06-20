@@ -17,7 +17,6 @@ const MoviesPage = () => {
 
     useEffect(() => {
         dispatch(fetchMovies());
-        // setMovies(allMovies);
     }, []);
 
     useEffect(() => {

@@ -16,4 +16,13 @@ const addSubscription = async obj => {
     return "Subscription added!";
 };
 
-module.exports = { getAllSubscriptions, getSubscriptionById, addSubscription };
+const getMembersByMovieId = async movieId => {
+    const members = await subscriptionsDAL.getMembersByMovieId(movieId);
+    return members;
+};
+module.exports = {
+    getAllSubscriptions,
+    getSubscriptionById,
+    addSubscription,
+    getMembersByMovieId,
+};

@@ -2,7 +2,6 @@ const membersDAL = require("../DAL/membersWS");
 
 const getAllMembers = async () => {
     const { data: members } = await membersDAL.getAllMembers();
-
     return members;
 };
 

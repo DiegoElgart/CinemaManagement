@@ -12,6 +12,7 @@ import AddMoviePage from "./Pages/AddMoviePage";
 import ManageMoviesPage from "./Pages/ManageMoviesPage";
 import EditMoviePage from "./Pages/EditMoviePage";
 import SubscriptionsPage from "./Pages/SubscriptionsPage";
+import MembersPage from "./Pages/MembersPage";
 
 function App() {
     return (
@@ -39,7 +40,12 @@ function App() {
                         element={<EditMoviePage />}
                     />
                 </Route>
-                <Route path='/subscriptions' element={<SubscriptionsPage />} />
+                <Route path='/subscriptions' element={<SubscriptionsPage />}>
+                    <Route
+                        path='/subscriptions/members'
+                        element={<MembersPage />}
+                    />
+                </Route>
             </Routes>
         </main>
     );

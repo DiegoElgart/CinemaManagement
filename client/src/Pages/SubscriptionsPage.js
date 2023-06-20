@@ -1,19 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    fetchAllSubscriptions,
-    selectAllSubscriptions,
-} from "../slices/subscriptions/subscriptionsSlice";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const SubscriptionsPage = () => {
     const dispatch = useDispatch();
-    const allSubscriptions = useSelector(selectAllSubscriptions);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(fetchAllSubscriptions());
-    }, [dispatch]);
-
-    return <div>SubscriptionsPage</div>;
+    return (
+        <div className='container'>
+            <h1>Subscriptions</h1>
+            <span className='button-container'>
+                <button onClick={() => navigate("/subscriptions/members")}>
+                    All Members
+                </button>
+                <button>Add Member</button>
+            </span>
+            <Outlet />
+        </div>
+    );
 };
 
 export default SubscriptionsPage;

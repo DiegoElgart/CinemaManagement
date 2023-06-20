@@ -1,5 +1,5 @@
 const Subscription = require("../models/subscriptionModel");
-
+const memberBLL = require("../BLL/membersBLL");
 const getAllSubscriptions = async () => {
     const subscriptions = await Subscription.find();
     return subscriptions;
@@ -31,10 +31,28 @@ const deleteSubscriptionById = async id => {
     await Subscription.findByIdAndDelete(id);
     return "Subscription Deleted";
 };
+const getMembersByMovieId = async id => {
+    try {
+        const membersId = await Subscription.find({
+            "movies.movieId": id,
+        });
+
+        const members = await Promise.all(
+            membersId.map(member => memberBLL.getMemberById(member.memberId))
+        );
+
+        return members;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 module.exports = {
     getAllSubscriptions,
     addSubscription,
     getSubscriptionById,
     updateSubscriptionById,
     deleteSubscriptionById,
+    getMembersByMovieId,
 };

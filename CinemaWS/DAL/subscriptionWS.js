@@ -10,4 +10,9 @@ const addSubscription = async obj => {
     return await axios.post(`${URL}/new`, obj);
 };
 
-module.exports = { getAllSubscriptions, addSubscription };
+const getMembersByMovieId = async movieId => {
+    const result = await axios.get(`${URL}/movies/${movieId}`);
+    return result.data;
+};
+
+module.exports = { getAllSubscriptions, addSubscription, getMembersByMovieId };
