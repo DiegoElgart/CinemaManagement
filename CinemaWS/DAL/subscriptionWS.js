@@ -3,16 +3,21 @@ const axios = require("axios");
 const URL = "http://localhost:4000/subscriptions";
 
 const getAllSubscriptions = async () => {
-    return await axios.get(URL);
+	return await axios.get(URL);
 };
 
 const addSubscription = async obj => {
-    return await axios.post(`${URL}/new`, obj);
+	return await axios.post(`${URL}/new`, obj);
 };
 
 const getMembersByMovieId = async movieId => {
-    const result = await axios.get(`${URL}/movies/${movieId}`);
-    return result.data;
+	const result = await axios.get(`${URL}/movies/${movieId}`);
+	return result.data;
 };
 
-module.exports = { getAllSubscriptions, addSubscription, getMembersByMovieId };
+const getMoviesByMemberId = async memberId => {
+	const result = await axios.get(`${URL}/movies/${memberId}`);
+	return result.data;
+};
+
+module.exports = { getAllSubscriptions, addSubscription, getMembersByMovieId, getMoviesByMemberId };
