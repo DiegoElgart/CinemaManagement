@@ -52,6 +52,7 @@ const deleteSubscriptionById = async id => {
 const getMoviesByMemberId = async id => {
 	try {
 		const { movies } = await Subscription.findOne({ memberId: id });
+		console.log(movies);
 		const moviesObj = await Promise.all(movies.map(movie => moviesBLL.getMovieById(movie.movieId)));
 		return moviesObj;
 	} catch (err) {
