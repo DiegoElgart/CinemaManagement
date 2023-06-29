@@ -16,7 +16,7 @@ const getMembersByMovieId = async movieId => {
 };
 
 const getMoviesByMemberId = async memberId => {
-	const result = await axios.get(`${URL}/movies/${memberId}`);
+	const result = await axios.get(`${URL}/memberId/${memberId}`);
 	return result.data;
 };
 

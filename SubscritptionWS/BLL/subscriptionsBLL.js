@@ -52,8 +52,26 @@ const deleteSubscriptionById = async id => {
 const getMoviesByMemberId = async id => {
 	try {
 		const { movies } = await Subscription.findOne({ memberId: id });
-		const moviesObj = await Promise.all(movies.map(movie => moviesBLL.getMovieById(movie.movieId)));
+
+		const moviesObj = await Promise.all(
+			movies.map(async movie => {
+				const movieById = await moviesBLL.getMovieById(movie.movieId);
+				const date = movie.date;
+				return { movie: movieById, date };
+			})
+		);
 		return moviesObj;
+	} catch (err) {
+		console.error(err);
+		throw err;
+	}
+};
+
+const getSubscriptionByMemberId = async id => {
+	try {
+		const subscriptions = await Subscription.findOne({ memberId: id });
+
+		return subscriptions;
 	} catch (err) {
 		console.error(err);
 		throw err;
@@ -68,4 +86,5 @@ module.exports = {
 	deleteSubscriptionById,
 	//getMembersByMovieId,
 	getMoviesByMemberId,
+	getSubscriptionByMemberId,
 };
