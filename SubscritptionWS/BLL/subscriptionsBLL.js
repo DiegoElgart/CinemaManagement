@@ -33,22 +33,6 @@ const deleteSubscriptionById = async id => {
 	return "Subscription Deleted";
 };
 
-// NO ESTOY MUY SEGURO DE ESTO
-// const getMembersByMovieId = async id => {
-// 	try {
-// 		const membersId = await Subscription.find({
-// 			"movies.movieId": id,
-// 		});
-// 		console.log(membersId);
-// 		const members = await Promise.all(membersId.map(member => memberBLL.getMemberById(member.memberId)));
-
-// 		return members;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw error;
-// 	}
-// };
-
 const getMoviesByMemberId = async id => {
 	try {
 		const { movies } = await Subscription.findOne({ memberId: id });
@@ -84,7 +68,6 @@ module.exports = {
 	getSubscriptionById,
 	updateSubscriptionById,
 	deleteSubscriptionById,
-	//getMembersByMovieId,
 	getMoviesByMemberId,
 	getSubscriptionByMemberId,
 };

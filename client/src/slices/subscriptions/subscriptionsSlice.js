@@ -58,7 +58,7 @@ const subscriptionsSlice = createSlice({
 	},
 });
 
-export const selectAllSubscriptions = state => state.subscriptions;
+export const selectAllSubscriptions = state => state.subscriptions.subscriptions;
 export const selectSubscriptionById = state => state.subcriptionById;
 export const selectSubscription = state => state.subscriptions.subscription;
 

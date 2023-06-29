@@ -1,154 +1,155 @@
 .container {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .button-container {
-    display: flex;
+	display: flex;
 }
 
 .button-container button {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 300px;
-    background-color: #f2f2f2;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    margin: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: auto;
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	margin: 15px;
+	padding: 15px;
 }
 
 .card .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .card .content {
-    font-size: 16px;
-    text-align: center;
-    padding: 0 20px;
+	font-size: 16px;
+	text-align: center;
+	padding: 0 20px;
 }
 
 .card .button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .card .button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .button-container {
-    padding: auto;
+	padding: auto;
 }
 
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+	width: 300px;
 }
 
 .form-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
 }
 
 .button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+	padding: 0.5rem 1rem;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	cursor: pointer;
 }
 
 .movies-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .movie-item {
-    flex: 0 0 calc(33.33% - 20px);
-    margin-bottom: 20px;
+	flex: 0 0 calc(33.33% - 20px);
+	margin-bottom: 20px;
 }
 
 .movie-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 }
 
 .movie-name {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+	font-size: 1.2rem;
+	margin-bottom: 5px;
 }
 
 .movie-year {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 10px;
+	font-size: 0.9rem;
+	color: #888;
+	margin-bottom: 10px;
 }
 
 .movie-genres {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 .movie-genre {
-    background-color: #eee;
-    color: #333;
-    padding: 5px 10px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    font-size: 0.9rem;
+	background-color: #eee;
+	color: #333;
+	padding: 5px 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 4px;
+	font-size: 0.9rem;
 }
 
 .movie-image {
-    max-width: 200px;
-    max-height: 200px;
+	max-width: 200px;
+	max-height: 200px;
 }
 
 .movie-buttons {
-    display: flex;
-    margin-top: 10px;
+	display: flex;
+	margin-top: 10px;
 }
 
 .movie-button {
-    background-color: #eee;
-    color: #333;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-right: 10px;
+	background-color: #eee;
+	color: #333;
+	padding: 8px 12px;
+	border: none;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	margin-right: 10px;
 }

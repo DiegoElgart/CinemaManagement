@@ -25,11 +25,15 @@ const deleteMember = async id => {
 	await membersDAL.deleteMember(id);
 	return "Member Deleted!";
 };
-
+const getAllMembersAndSubscriptios = async () => {
+	const result = await membersDAL.getAllMembersAndSubscriptios();
+	return result.data;
+};
 module.exports = {
 	getAllMembers,
 	getMemberById,
 	addMember,
 	updateMember,
 	deleteMember,
+	getAllMembersAndSubscriptios,
 };

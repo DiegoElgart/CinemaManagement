@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchAllMembers, selectAllMembers } from "../slices/members/membersSlice";
 import SubscriptionsComponent from "../Components/SubscriptionsComponent";
-import { fetchSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 
 const MembersPage = () => {
 	const dispatch = useDispatch();
@@ -17,25 +16,27 @@ const MembersPage = () => {
 	useEffect(() => {
 		setMembers(allMembers);
 	}, [allMembers]);
+
 	return (
 		<div>
-			{members.map(member => {
-				dispatch(fetchSubscriptionByMemberId(member._id));
-				return (
-					<div key={member._id} className='card'>
-						<h1 className='title'>{member.Name}</h1>
-						<span className='content'>
-							<h4>Email: {member.Email}</h4>
-							<h4>City: {member.City}</h4>
-						</span>
-						<div className='button-container'>
-							<button className='button'>Edit</button>
-							<button className='button'>Delete</button>
-						</div>
-						<SubscriptionsComponent memberId={member._id} />
-					</div>
-				);
-			})}
+			{members
+				? members.map(member => {
+						return (
+							<div key={member.member._id} className='card'>
+								<h1 className='title'>{member.member.name}</h1>
+								<span className='content'>
+									<h4>Email: {member.member.email}</h4>
+									<h4>City: {member.member.city}</h4>
+								</span>
+								<div className='button-container'>
+									<button className='button'>Edit</button>
+									<button className='button'>Delete</button>
+								</div>
+								<SubscriptionsComponent subscription={member.subscription} />
+							</div>
+						);
+				  })
+				: null}
 		</div>
 	);
 };

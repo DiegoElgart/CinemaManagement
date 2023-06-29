@@ -22,6 +22,15 @@ router.route("/:id").get(async (req, res) => {
 	}
 });
 
+router.route("/subs").get(async (req, res) => {
+	try {
+		const members = await membersBLL.getAllMembersAndSubscriptios();
+		res.json(members);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+});
+
 router.route("/new").post(async (req, res) => {
 	try {
 		const obj = req.body;

@@ -15,40 +15,28 @@ import SubscriptionsPage from "./Pages/SubscriptionsPage";
 import MembersPage from "./Pages/MembersPage";
 
 function App() {
-    return (
-        <main className='container'>
-            <Routes>
-                <Route path='/' element={<LoginPage />} />
-                <Route path='/main' element={<MainPage />} />
-                <Route path='/register' element={<CreateAccountPage />} />
-                <Route path='/manage-users' element={<ManageUsersPage />}>
-                    <Route path='/manage-users/users' element={<UsersPage />} />
-                    <Route
-                        path='/manage-users/edit-user/:id'
-                        element={<EditUserPage />}
-                    />
-                    <Route
-                        path='/manage-users/addUser'
-                        element={<AddUserPage />}
-                    />
-                </Route>
-                <Route path='/movies' element={<ManageMoviesPage />}>
-                    <Route path='/movies/allmovies' element={<MoviesPage />} />
-                    <Route path='/movies/addMovie' element={<AddMoviePage />} />
-                    <Route
-                        path='/movies/edit/:id'
-                        element={<EditMoviePage />}
-                    />
-                </Route>
-                <Route path='/subscriptions' element={<SubscriptionsPage />}>
-                    <Route
-                        path='/subscriptions/members'
-                        element={<MembersPage />}
-                    />
-                </Route>
-            </Routes>
-        </main>
-    );
+	return (
+		<main className='container'>
+			<Routes>
+				<Route path='/' element={<LoginPage />} />
+				<Route path='/main' element={<MainPage />} />
+				<Route path='/register' element={<CreateAccountPage />} />
+				<Route path='/manage-users' element={<ManageUsersPage />}>
+					<Route path='/manage-users/users' element={<UsersPage />} />
+					<Route path='/manage-users/edit-user/:id' element={<EditUserPage />} />
+					<Route path='/manage-users/addUser' element={<AddUserPage />} />
+				</Route>
+				<Route path='/movies' element={<ManageMoviesPage />}>
+					<Route path='/movies/allmovies' element={<MoviesPage />} />
+					<Route path='/movies/addMovie' element={<AddMoviePage />} />
+					<Route path='/movies/edit/:id' element={<EditMoviePage />} />
+				</Route>
+				<Route path='/subscriptions' element={<SubscriptionsPage />}>
+					<Route path='/subscriptions/members' element={<MembersPage />} />
+				</Route>
+			</Routes>
+		</main>
+	);
 }
 
 export default App;
