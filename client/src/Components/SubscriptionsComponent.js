@@ -48,7 +48,7 @@ const SubscriptionsComponent = ({ memberId }) => {
 		};
 		await dispatch(addSubscription(newSubscription));
 		alert("Subscription Created");
-		redirect("/subscriptions");
+		window.location.reload(false);
 	};
 	return (
 		<div>

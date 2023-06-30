@@ -13,7 +13,11 @@ const addSubscription = async obj => {
 	if (existingSubscription) {
 		await updateSubscriptionById(existingSubscription._id, obj);
 	} else {
-		const subscription = new Subscription(obj);
+		const newSubs = {
+			memberId: obj.memberId,
+			movies: [{ movieId: obj.movieId, date: obj.date }],
+		};
+		const subscription = new Subscription(newSubs);
 		await subscription.save();
 	}
 	return "Subscription Created";
