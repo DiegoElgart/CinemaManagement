@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const fetchAllMembers = createAsyncThunk("members/fecthAllMembers", async () => {
-	const response = await axios.get(`${MEMBERS_URL}/subs`);
+	const response = await axios.get(`${MEMBERS_URL}`);
 	return response.data;
 });
 

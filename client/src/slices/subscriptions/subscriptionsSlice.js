@@ -26,6 +26,11 @@ export const fetchSubscriptionByMemberId = createAsyncThunk("subscription/fetchS
 	return response.data;
 });
 
+export const addSubscription = createAsyncThunk("subscription/addSubscription", async newSubscription => {
+	const response = await axios.post(`${SUBSCRIPTIONS_URL}/new`, newSubscription);
+	return response.data;
+});
+
 const subscriptionsSlice = createSlice({
 	name: "subscriptions",
 	initialState,
@@ -45,7 +50,7 @@ const subscriptionsSlice = createSlice({
 			})
 			.addCase(fetchSubscriptionById.fulfilled, (state, action) => {
 				state.status = "succeeded fetching subscription by id";
-				state.subscriptions = action.payload;
+				state.subscriptionById = action.payload;
 			})
 			.addCase(fetchSubscriptionByMemberId.fulfilled, (state, action) => {
 				state.status = "succeeded fetching subscription by memberid";
@@ -54,6 +59,12 @@ const subscriptionsSlice = createSlice({
 			.addCase(fetchSubscriptionByMemberId.rejected, (state, action) => {
 				state.status = "failed fetching subscription by memberid";
 				state.subscription = {};
+			})
+			.addCase(addSubscription.rejected, (state, action) => {
+				state.status = "failed to add new subscription";
+			})
+			.addCase(addSubscription.fulfilled, (state, action) => {
+				state.status = "failed to add new subscription";
 			});
 	},
 });
@@ -61,5 +72,6 @@ const subscriptionsSlice = createSlice({
 export const selectAllSubscriptions = state => state.subscriptions.subscriptions;
 export const selectSubscriptionById = state => state.subcriptionById;
 export const selectSubscription = state => state.subscriptions.subscription;
+export const selectSubscriptionByMemberId = state => state.subscriptions.subscription;
 
 export default subscriptionsSlice.reducer;

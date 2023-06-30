@@ -1,43 +1,75 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllSubscriptions, fetchSubscriptionByMemberId, selectAllSubscriptions, selectSubscription } from "../slices/subscriptions/subscriptionsSlice";
+import { addSubscription, fetchSubscriptionByMemberId, selectSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 import MoviesSubsComp from "./MoviesSubsComp";
-import { fetchMovieById, getMovieToEdit, selectAllMovies } from "../slices/movies/moviesSlice";
-
-const SubscriptionsComponent = ({ subscription }) => {
+import { fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
+import { redirect } from "react-router-dom";
+const SubscriptionsComponent = ({ memberId }) => {
 	const dispatch = useDispatch();
-	const moviesFromMovies = useSelector(selectAllMovies);
-	const [moviesFromSubscription, setMoviesFromSubscription] = useState([]);
-	const [moviesToShow, setMoviesToShow] = useState([]);
+	const subscriptionDb = useSelector(selectSubscriptionByMemberId);
+	const moviesDb = useSelector(selectAllMovies);
+
+	const [subcription, setSubscription] = useState({});
+	const [movies, setMovies] = useState([]);
+	const [show, setShow] = useState(true);
+	const [movieId, setMovieId] = useState("");
+	const [date, setDate] = useState("");
+
 	useEffect(() => {
-		if (subscription !== null) {
-			const { movies } = subscription;
-			setMoviesFromSubscription(movies);
+		dispatch(fetchSubscriptionByMemberId(memberId));
+	}, [dispatch, memberId]);
+
+	useEffect(() => {
+		if (subscriptionDb.memberId === memberId) {
+			setSubscription(subscriptionDb);
 		}
-	}, [subscription]);
+		if (moviesDb) {
+			setMovies(moviesDb);
+		}
+	}, [subscriptionDb, moviesDb]);
 
-	useEffect(() => {
-		moviesFromSubscription.map(movie => dispatch(fetchMovieById(movie.movieId)));
-	}, [moviesFromSubscription, dispatch]);
+	const handleChange = e => {
+		const { name, value } = e.target;
 
-	useEffect(() => {
-		const fullMovieData = moviesFromMovies.map(movieDb => {
-			const mergedMovies = moviesFromSubscription.find(movie => movie.movieId === movieDb._id);
-			const fullMovie = {
-				_id: movieDb._id,
-				name: movieDb.name,
-				memberId: mergedMovies ? mergedMovies.memberId : null,
-				date: mergedMovies ? mergedMovies.date : null,
-			};
-			return fullMovie;
-		});
-		setMoviesToShow(fullMovieData);
-	}, [moviesFromMovies]);
+		if (name === "movieId") {
+			setMovieId(value);
+		}
+		if (name === "date") {
+			setDate(value);
+		}
+	};
+
+	const handleDispatch = async () => {
+		const newSubscription = {
+			memberId: memberId,
+
+			movieId: movieId,
+			date: date,
+		};
+		await dispatch(addSubscription(newSubscription));
+		alert("Subscription Created");
+		redirect("/subscriptions");
+	};
 	return (
 		<div>
 			<h3>Movies watched</h3>
-			{/* {console.log(moviesToShow)} */}
-			{/* {moviesToShow ? moviesToShow.map(movie => <p>{movie.name}</p>) : null} */}
+			<button onClick={() => setShow(!show)}>Subscribe to new movie</button>
+			<br />
+			<br />
+			<span style={show ? { display: "none" } : null}>
+				<select onChange={handleChange} name='movieId'>
+					{movies
+						? movies.map(movie => (
+								<option key={movie._id} value={movie._id}>
+									{movie.name}
+								</option>
+						  ))
+						: null}
+				</select>
+				<input type='date' name='date' onChange={handleChange} />
+				<button onClick={handleDispatch}>Subscribe</button>
+			</span>
+			{subcription ? <MoviesSubsComp subscription={subcription} /> : null}
 		</div>
 	);
 };
