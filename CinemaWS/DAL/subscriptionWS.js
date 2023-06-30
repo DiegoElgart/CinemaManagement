@@ -15,9 +15,9 @@ const getMembersByMovieId = async movieId => {
 	return result.data;
 };
 
-const getMoviesByMemberId = async memberId => {
+const getSubscriptionByMemberId = async memberId => {
 	const result = await axios.get(`${URL}/memberId/${memberId}`);
 	return result.data;
 };
 
-module.exports = { getAllSubscriptions, addSubscription, getMembersByMovieId, getMoviesByMemberId };
+module.exports = { getAllSubscriptions, addSubscription, getMembersByMovieId, getSubscriptionByMemberId };

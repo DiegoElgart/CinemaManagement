@@ -53,9 +53,12 @@ const getMoviesByMemberId = async id => {
 
 const getSubscriptionByMemberId = async id => {
 	try {
-		const subscriptions = await Subscription.findOne({ memberId: id });
-
-		return subscriptions;
+		const subscription = await Subscription.findOne({ memberId: id });
+		const moviesInSubscription = await subscription.getMoviesForMember((err, populatedSubscription) => {
+			if (err) console.error(err);
+			return;
+		});
+		return moviesInSubscription;
 	} catch (err) {
 		console.error(err);
 		throw err;

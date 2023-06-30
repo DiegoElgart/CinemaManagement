@@ -21,8 +21,8 @@ const getMembersByMovieId = async movieId => {
 	return members;
 };
 
-const getMoviesByMemberId = async memberId => {
-	const movies = await subscriptionsDAL.getMoviesByMemberId(memberId);
+const getSubscriptionByMemberId = async memberId => {
+	const movies = await subscriptionsDAL.getSubscriptionByMemberId(memberId);
 	return movies;
 };
 module.exports = {
@@ -30,5 +30,5 @@ module.exports = {
 	getSubscriptionById,
 	addSubscription,
 	getMembersByMovieId,
-	getMoviesByMemberId,
+	getSubscriptionByMemberId,
 };

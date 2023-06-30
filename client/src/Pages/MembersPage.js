@@ -32,7 +32,7 @@ const MembersPage = () => {
 									<button className='button'>Edit</button>
 									<button className='button'>Delete</button>
 								</div>
-								<SubscriptionsComponent subscription={member.subscription} />
+								{/* <SubscriptionsComponent subscription={member.subscription} /> */}
 							</div>
 						);
 				  })
