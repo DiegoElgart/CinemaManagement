@@ -62,14 +62,4 @@ router.route("/memberId/:id").get(async (req, res) => {
 	}
 });
 
-// router.route("/movies/:id").get(async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const result = await subscriptionsBLL.getMembersByMovieId(id);
-//         res.json(result);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
-
 module.exports = router;

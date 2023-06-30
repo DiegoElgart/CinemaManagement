@@ -1,6 +1,7 @@
 const Subscription = require("../models/subscriptionModel");
 const memberBLL = require("../BLL/membersBLL");
 const moviesBLL = require("./moviesBLL");
+
 const getAllSubscriptions = async () => {
 	const subscriptions = await Subscription.find();
 	return subscriptions;
@@ -10,7 +11,7 @@ const addSubscription = async obj => {
 	const { memberId } = obj;
 	const existingSubscription = await Subscription.findOne({ memberId });
 	if (existingSubscription) {
-		await updateSubscriptionById(memberId, obj);
+		await updateSubscriptionById(existingSubscription._id, obj);
 	} else {
 		const subscription = new Subscription(obj);
 		await subscription.save();
@@ -24,7 +25,8 @@ const getSubscriptionById = async id => {
 };
 
 const updateSubscriptionById = async (id, obj) => {
-	await Subscription.findByIdAndUpdate(id, obj);
+	const subscription = await Subscription.findByIdAndUpdate(id, { $push: { movies: [{ movieId: obj.movieId, date: obj.date }] } }, { new: true });
+	subscription.save();
 	return "Subscription Updated";
 };
 
@@ -33,32 +35,17 @@ const deleteSubscriptionById = async id => {
 	return "Subscription Deleted";
 };
 
-const getMoviesByMemberId = async id => {
-	try {
-		const { movies } = await Subscription.findOne({ memberId: id });
-
-		const moviesObj = await Promise.all(
-			movies.map(async movie => {
-				const movieById = await moviesBLL.getMovieById(movie.movieId);
-				const date = movie.date;
-				return { movie: movieById, date };
-			})
-		);
-		return moviesObj;
-	} catch (err) {
-		console.error(err);
-		throw err;
-	}
-};
-
 const getSubscriptionByMemberId = async id => {
 	try {
 		const subscription = await Subscription.findOne({ memberId: id });
-		const moviesInSubscription = await subscription.getMoviesForMember((err, populatedSubscription) => {
-			if (err) console.error(err);
-			return;
-		});
-		return moviesInSubscription;
+		if (subscription) {
+			const moviesInSubscription = await subscription.getMoviesForMember((err, populatedSubscription) => {
+				if (err) console.error(err);
+				return;
+			});
+
+			return moviesInSubscription;
+		}
 	} catch (err) {
 		console.error(err);
 		throw err;
@@ -71,6 +58,5 @@ module.exports = {
 	getSubscriptionById,
 	updateSubscriptionById,
 	deleteSubscriptionById,
-	getMoviesByMemberId,
 	getSubscriptionByMemberId,
 };

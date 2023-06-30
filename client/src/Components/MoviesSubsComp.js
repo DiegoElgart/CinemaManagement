@@ -7,23 +7,34 @@ const MoviesSubsComp = ({ subscription }) => {
 	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const { movies } = subscription;
-			const movieDataPromises = movies.map(movie => dispatch(fetchMovieById(movie.movieId)));
-			const movieData = await Promise.all(movieDataPromises);
-			//setMovies(movieData);
-		};
+		const { movies } = subscription;
+		if (movies) {
+			setMovies(movies);
+		}
+	}, [subscription]);
 
-		fetchData();
-	}, [dispatch, subscription]);
+	const formattedDate = watchedDate => {
+		const date = new Date(watchedDate);
+		const formattedDate = date.toISOString().slice(0, 10);
+		return formattedDate;
+	};
 
 	return (
 		<div>
-			{/* {movies.map(movie => (
-				<div key={movie._id} className='movie-item'>
-					<h4 className='movie-name'>{movie.name}</h4>
-				</div>
-			))} */}
+			{movies
+				? movies.map(movie => {
+						return (
+							<ul key={movie._id} className='movie-item'>
+								<li>
+									<a href={`/movies/edit/${movie._id}`} className='movie-name'>
+										{movie.movieId ? movie.movieId.name : null}
+									</a>
+									, {formattedDate(movie.date)}
+								</li>
+							</ul>
+						);
+				  })
+				: null}
 		</div>
 	);
 };
