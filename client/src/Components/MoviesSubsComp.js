@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovieById } from "../slices/movies/moviesSlice";
 
 const MoviesSubsComp = ({ subscription }) => {
-	const dispatch = useDispatch();
 	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {

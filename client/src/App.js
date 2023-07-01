@@ -1,7 +1,8 @@
 import "./app.css";
 import { Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
-import MainPage from "./Pages/MainPage";
+import MainMenu from "./Pages/MainMenu";
 import ManageUsersPage from "./Pages/ManageUsersPage";
 import UsersPage from "./Pages/UsersPage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
@@ -15,19 +16,44 @@ import SubscriptionsPage from "./Pages/SubscriptionsPage";
 import MembersPage from "./Pages/MembersPage";
 import EditMemberPage from "./Pages/EditMemberPage";
 import AddMemberPage from "./Pages/AddMemberPage";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getUserName, getUserSessionTime, getUserPermissions } from "./slices/users/authSlice";
 
 function App() {
+	const userNameDb = useSelector(getUserName);
+	const sessionTimeOutDb = useSelector(getUserSessionTime);
+	const permissionsDb = useSelector(getUserPermissions);
+
+	const [permissions, setPermissions] = useState([]);
+	const [userName, setUserName] = useState("");
+	const [sessionTimeOut, setSessionTimeOut] = useState(0);
+
+	useEffect(() => {
+		setUserName(userNameDb);
+		setSessionTimeOut(sessionTimeOutDb);
+		setPermissions(permissionsDb);
+	}, [userNameDb, sessionTimeOutDb, permissionsDb]);
+
 	return (
 		<main className='container'>
+			{userName ? (
+				<div>
+					<h4>Hi, {userName}</h4>
+				</div>
+			) : null}
+
 			<Routes>
-				<Route path='/' element={<LoginPage />} />
-				<Route path='/main' element={<MainPage />} />
+				<Route path='/' element={<HomePage permissions={permissions} />} />
+				<Route path='/login' element={<LoginPage />} />
 				<Route path='/register' element={<CreateAccountPage />} />
+
 				<Route path='/manage-users' element={<ManageUsersPage />}>
 					<Route path='/manage-users/users' element={<UsersPage />} />
 					<Route path='/manage-users/edit-user/:id' element={<EditUserPage />} />
 					<Route path='/manage-users/addUser' element={<AddUserPage />} />
 				</Route>
+
 				<Route path='/movies' element={<ManageMoviesPage />}>
 					<Route path='/movies/allmovies' element={<MoviesPage />} />
 					<Route path='/movies/addMovie' element={<AddMoviePage />} />

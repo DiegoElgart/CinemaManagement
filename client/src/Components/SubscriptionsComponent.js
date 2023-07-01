@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addSubscription, fetchSubscriptionByMemberId, selectSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 import MoviesSubsComp from "./MoviesSubsComp";
-import { fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
-import { redirect } from "react-router-dom";
+import { selectAllMovies } from "../slices/movies/moviesSlice";
 const SubscriptionsComponent = ({ memberId }) => {
 	const dispatch = useDispatch();
 	const subscriptionDb = useSelector(selectSubscriptionByMemberId);
@@ -26,7 +25,7 @@ const SubscriptionsComponent = ({ memberId }) => {
 		if (moviesDb) {
 			setMovies(moviesDb);
 		}
-	}, [subscriptionDb, moviesDb]);
+	}, [subscriptionDb, moviesDb, memberId]);
 
 	const handleChange = e => {
 		const { name, value } = e.target;

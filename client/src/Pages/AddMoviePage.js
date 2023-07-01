@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { addNewMovie, getMoviesStatus } from "../slices/movies/moviesSlice";
+import { addNewMovie } from "../slices/movies/moviesSlice";
 import { useNavigate } from "react-router-dom";
 
 const AddMoviePage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const addMovieStatus = useSelector(getMoviesStatus);
 
 	const [movieToAdd, setMovieToAdd] = useState({
 		name: "",
@@ -25,7 +24,7 @@ const AddMoviePage = () => {
 	};
 	const handleGenresChange = e => {
 		e.preventDefault();
-		const { name, value } = e.target;
+		const { value } = e.target;
 		setInputValue(value);
 	};
 
@@ -42,6 +41,7 @@ const AddMoviePage = () => {
 
 		setWords(prevWords => [...prevWords, ...separatedWords]);
 		setInputValue("");
+		console.log(words);
 
 		const dateString = movieToAdd.premiered;
 		const dateTime = new Date(dateString);

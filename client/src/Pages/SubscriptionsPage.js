@@ -1,9 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const SubscriptionsPage = () => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	return (

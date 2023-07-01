@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchSubscriptionByMovieId, selectSubscription, selectIsSubscription } from "../slices/subscriptions/subscriptionsSlice";
+import { fetchSubscriptionByMovieId, selectSubscription } from "../slices/subscriptions/subscriptionsSlice";
 
 const SubscribedToMovieComponent = ({ movieId }) => {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const subscriptions = useSelector(selectSubscription);
 	const [subsToShow, setSubsToShow] = useState([]);
@@ -16,7 +14,7 @@ const SubscribedToMovieComponent = ({ movieId }) => {
 	useEffect(() => {
 		if (subscriptions.length > 0) {
 			subscriptions.map(subs => {
-				if (subs.movieId == movieId) {
+				if (subs.movieId === movieId) {
 					setSubsToShow(subscriptions);
 				}
 				return "Added";

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteMember, fetchAllMembers, selectAllMembers } from "../slices/members/membersSlice";
 import SubscriptionsComponent from "../Components/SubscriptionsComponent";
-import { fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
+import { fetchMovies } from "../slices/movies/moviesSlice";
 import { useNavigate } from "react-router-dom";
 import { deleteSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 
@@ -16,7 +16,7 @@ const MembersPage = () => {
 	useEffect(() => {
 		dispatch(fetchAllMembers());
 		dispatch(fetchMovies());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		setMembers(allMembers);
