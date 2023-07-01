@@ -25,6 +25,9 @@ const subscriptionSchema = new Schema(
 subscriptionSchema.methods.getMoviesForMember = function () {
 	return this.populate("movies.movieId");
 };
+subscriptionSchema.methods.getMembersForMovie = function () {
+	return this.populate("member.memberId");
+};
 
 const Subscription = mongoose.model("Subscription", subscriptionSchema);
 module.exports = Subscription;

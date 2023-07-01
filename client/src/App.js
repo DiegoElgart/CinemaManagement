@@ -13,6 +13,8 @@ import ManageMoviesPage from "./Pages/ManageMoviesPage";
 import EditMoviePage from "./Pages/EditMoviePage";
 import SubscriptionsPage from "./Pages/SubscriptionsPage";
 import MembersPage from "./Pages/MembersPage";
+import EditMemberPage from "./Pages/EditMemberPage";
+import AddMemberPage from "./Pages/AddMemberPage";
 
 function App() {
 	return (
@@ -33,6 +35,8 @@ function App() {
 				</Route>
 				<Route path='/subscriptions' element={<SubscriptionsPage />}>
 					<Route path='/subscriptions/members' element={<MembersPage />} />
+					<Route path='/subscriptions/addMember' element={<AddMemberPage />} />
+					<Route path='/subscriptions/members/:id' element={<EditMemberPage />} />
 				</Route>
 			</Routes>
 		</main>

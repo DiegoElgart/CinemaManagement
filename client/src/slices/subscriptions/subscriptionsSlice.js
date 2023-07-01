@@ -7,6 +7,7 @@ const initialState = {
 	subscriptions: [],
 	subcriptionById: {},
 	subscription: {},
+	isSubscription: false,
 	status: "idle",
 	error: null,
 };
@@ -25,9 +26,17 @@ export const fetchSubscriptionByMemberId = createAsyncThunk("subscription/fetchS
 	const response = await axios.get(`${SUBSCRIPTIONS_URL}/memberId/${memberId}`);
 	return response.data;
 });
+export const fetchSubscriptionByMovieId = createAsyncThunk("subscription/fetchSubscriptionByMovieId", async movieId => {
+	const response = await axios.get(`${SUBSCRIPTIONS_URL}/movieId/${movieId}`);
+	return response.data;
+});
 
 export const addSubscription = createAsyncThunk("subscription/addSubscription", async newSubscription => {
 	const response = await axios.post(`${SUBSCRIPTIONS_URL}/new`, newSubscription);
+	return response.data;
+});
+export const deleteSubscriptionByMemberId = createAsyncThunk("subscription/deleteSubscriptionByMemberId", async memberId => {
+	const response = await axios.post(`${SUBSCRIPTIONS_URL}/delete/${memberId}`);
 	return response.data;
 });
 
@@ -65,6 +74,21 @@ const subscriptionsSlice = createSlice({
 			})
 			.addCase(addSubscription.fulfilled, (state, action) => {
 				state.status = "failed to add new subscription";
+			})
+			.addCase(deleteSubscriptionByMemberId.fulfilled, (state, action) => {
+				state.status = "Successful deleted subscription by memberId";
+			})
+			.addCase(deleteSubscriptionByMemberId.rejected, (state, action) => {
+				state.status = "Failed to delete subscription by memberId";
+			})
+			.addCase(fetchSubscriptionByMovieId.fulfilled, (state, action) => {
+				state.status = "succeeded fetching subscription by movieId";
+				state.subscription = action.payload;
+				state.isSubscription = true;
+			})
+			.addCase(fetchSubscriptionByMovieId.rejected, (state, action) => {
+				state.status = "failed fetching subscription by movieId";
+				state.isSubscription = false;
 			});
 	},
 });
@@ -73,5 +97,5 @@ export const selectAllSubscriptions = state => state.subscriptions.subscriptions
 export const selectSubscriptionById = state => state.subcriptionById;
 export const selectSubscription = state => state.subscriptions.subscription;
 export const selectSubscriptionByMemberId = state => state.subscriptions.subscription;
-
+export const selectIsSubscription = state => state.subscriptions.isSubscription;
 export default subscriptionsSlice.reducer;

@@ -16,19 +16,24 @@ const addSubscription = async obj => {
 	return "Subscription added!";
 };
 
-const getMembersByMovieId = async movieId => {
-	const members = await subscriptionsDAL.getMembersByMovieId(movieId);
+const getSubscriptionByMovieId = async movieId => {
+	const members = await subscriptionsDAL.getSubscriptionByMovieId(movieId);
 	return members;
 };
 
 const getSubscriptionByMemberId = async memberId => {
-	const movies = await subscriptionsDAL.getSubscriptionByMemberId(memberId);
-	return movies;
+	const members = await subscriptionsDAL.getSubscriptionByMemberId(memberId);
+	return members;
+};
+const deleteSubscriptionByMemberId = async memberId => {
+	const deletedMember = await subscriptionsDAL.deleteSubscriptionByMemberId(memberId);
+	return deletedMember;
 };
 module.exports = {
 	getAllSubscriptions,
 	getSubscriptionById,
 	addSubscription,
-	getMembersByMovieId,
+	getSubscriptionByMovieId,
 	getSubscriptionByMemberId,
+	deleteSubscriptionByMemberId,
 };

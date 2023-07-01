@@ -26,7 +26,7 @@ const MoviesSubsComp = ({ subscription }) => {
 						return (
 							<ul key={movie._id} className='movie-item'>
 								<li>
-									<a href={`/movies/edit/${movie._id}`} className='movie-name'>
+									<a href={`/movies/edit/${movie.movieId._id}`} className='movie-name'>
 										{movie.movieId ? movie.movieId.name : null}
 									</a>
 									, {formattedDate(movie.date)}

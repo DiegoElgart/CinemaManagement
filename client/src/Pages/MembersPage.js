@@ -1,12 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchAllMembers, selectAllMembers } from "../slices/members/membersSlice";
+import { deleteMember, fetchAllMembers, selectAllMembers } from "../slices/members/membersSlice";
 import SubscriptionsComponent from "../Components/SubscriptionsComponent";
 import { fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
+import { useNavigate } from "react-router-dom";
+import { deleteSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 
 const MembersPage = () => {
 	const dispatch = useDispatch();
 	const allMembers = useSelector(selectAllMembers);
+	const navigate = useNavigate();
 
 	const [members, setMembers] = useState([]);
 
@@ -19,6 +22,12 @@ const MembersPage = () => {
 		setMembers(allMembers);
 	}, [allMembers]);
 
+	const handleDelete = async (e, memberId) => {
+		e.preventDefault();
+		await dispatch(deleteMember(memberId));
+		await dispatch(deleteSubscriptionByMemberId(memberId));
+		window.location.reload();
+	};
 	return (
 		<div>
 			{members
@@ -31,8 +40,12 @@ const MembersPage = () => {
 									<h4>City: {member.city}</h4>
 								</span>
 								<div className='button-container'>
-									<button className='button'>Edit</button>
-									<button className='button'>Delete</button>
+									<button className='button' onClick={() => navigate(`/subscriptions/members/${member._id}`)}>
+										Edit
+									</button>
+									<button className='button' onClick={e => handleDelete(e, member._id)}>
+										Delete
+									</button>
 								</div>
 								<SubscriptionsComponent memberId={member._id} />
 							</div>

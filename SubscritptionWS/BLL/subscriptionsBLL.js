@@ -1,6 +1,7 @@
 const Subscription = require("../models/subscriptionModel");
 const memberBLL = require("../BLL/membersBLL");
 const moviesBLL = require("./moviesBLL");
+const { default: mongoose } = require("mongoose");
 
 const getAllSubscriptions = async () => {
 	const subscriptions = await Subscription.find();
@@ -34,8 +35,8 @@ const updateSubscriptionById = async (id, obj) => {
 	return "Subscription Updated";
 };
 
-const deleteSubscriptionById = async id => {
-	await Subscription.findByIdAndDelete(id);
+const deleteSubscriptionByMemberId = async memberId => {
+	const result = await Subscription.findOneAndDelete({ memberId: memberId });
 	return "Subscription Deleted";
 };
 
@@ -56,11 +57,38 @@ const getSubscriptionByMemberId = async id => {
 	}
 };
 
+const getSubscriptionByMovieId = async movieId => {
+	try {
+		const subscriptions = await Subscription.find({ "movies.movieId": movieId })
+			.populate("memberId")
+			.then(member => member)
+			.catch(err => console.log(err));
+
+		const subscriptionByMovieId = await subscriptions.map(subs => {
+			const { movies } = subs;
+			const movie = movies.find(movie => movie.movieId == movieId);
+			const obj = {
+				movieId: movieId,
+				memberId: subs.memberId._id,
+				name: subs.memberId.name,
+				date: movie.date,
+			};
+			return obj;
+		});
+
+		return subscriptionByMovieId;
+	} catch (err) {
+		console.error(err);
+		throw err;
+	}
+};
+
 module.exports = {
 	getAllSubscriptions,
 	addSubscription,
 	getSubscriptionById,
 	updateSubscriptionById,
-	deleteSubscriptionById,
+	deleteSubscriptionByMemberId,
 	getSubscriptionByMemberId,
+	getSubscriptionByMovieId,
 };

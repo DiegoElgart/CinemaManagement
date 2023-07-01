@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { deleteMovie, fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
-import SubscriptionsComponent from "../Components/SubscriptionsComponent";
+import SubscribedToMovieComponent from "../Components/SubscribedToMovieComponent";
+
 const MoviesPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -58,25 +59,30 @@ const MoviesPage = () => {
 				const dateString = movie.premiered;
 				const year = dateString.substring(0, 4);
 				return (
-					<div key={movie._id} className='movie-item'>
-						<h2 className='movie-name'>
-							{movie.name}, {year}
-						</h2>
-						<h4>Genres: </h4>
-						<ul>
-							{movie.genres.map((genre, genreIndex) => (
-								<li key={genreIndex}>{genre}</li>
-							))}
-						</ul>
-						<img src={movie.image} alt={movie.name} className='movie-image' />
+					<div className='container' key={movie._id}>
+						<div className='card'>
+							<span className='content'>
+								<h2 className='movie-name'>
+									{movie.name}, {year}
+								</h2>
+								<h4>Genres: </h4>
+								<ul>
+									{movie.genres.map((genre, genreIndex) => (
+										<li key={genreIndex}>{genre}</li>
+									))}
+								</ul>
+								<img src={movie.image} alt={movie.name} className='movie-image' />
+							</span>
+							<SubscribedToMovieComponent movieId={movie._id} />
 
-						<div className='movie-buttons'>
-							<button className='movie-button' onClick={() => navigate(`/movies/edit/${movie._id}`)}>
-								Edit
-							</button>
-							<button className='movie-button' onClick={() => handleDelete(movie._id)}>
-								Delete
-							</button>
+							<div className='button-container'>
+								<button className='button' onClick={() => navigate(`/movies/edit/${movie._id}`)}>
+									Edit
+								</button>
+								<button className='button' onClick={() => handleDelete(movie._id)}>
+									Delete
+								</button>
+							</div>
 						</div>
 					</div>
 				);

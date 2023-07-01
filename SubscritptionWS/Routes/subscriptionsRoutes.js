@@ -45,7 +45,7 @@ router.route("/:id").post(async (req, res) => {
 router.route("/delete/:id").post(async (req, res) => {
 	try {
 		const { id } = req.params;
-		const result = await subscriptionsBLL.deleteSubscriptionById(id);
+		const result = await subscriptionsBLL.deleteSubscriptionByMemberId(id);
 		res.json(result);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
@@ -56,6 +56,16 @@ router.route("/memberId/:id").get(async (req, res) => {
 	try {
 		const { id } = req.params;
 		const result = await subscriptionsBLL.getSubscriptionByMemberId(id);
+		res.json(result);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+});
+
+router.route("/movieId/:id").get(async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await subscriptionsBLL.getSubscriptionByMovieId(id);
 		res.json(result);
 	} catch (err) {
 		res.status(500).json({ error: err.message });

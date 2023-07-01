@@ -10,12 +10,14 @@ const addMember = async obj => {
 	return await axios.post(`${URL}/new`, obj);
 };
 
-const updateMember = async (obj, id) => {
-	return await axios.post(`${URL}/${id}`, obj);
+const updateMember = async (id, obj) => {
+	const result = await axios.post(`${URL}/${id}`, obj);
+
+	return result;
 };
 
 const deleteMember = async id => {
-	return await axios.post(`${URL}/${id}`);
+	return await axios.post(`${URL}/delete/${id}`);
 };
 
 const getAllMembersAndSubscriptios = async () => {

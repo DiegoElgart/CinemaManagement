@@ -8,7 +8,6 @@ const EditMoviePage = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const movie = useSelector(getMovieToEdit);
-
 	const [inputValue, setInputValue] = useState("");
 	const [movieToEdit, setMovieToEdit] = useState({
 		name: "",
@@ -82,7 +81,7 @@ const EditMoviePage = () => {
 					<input type='date' id='premiered' name='premiered' defaultValue={movieToEdit.premiered} onChange={handleChange} />
 					<div className='button-container'>
 						<button type='submit'>Save</button>
-						<button type='button' onClick={() => navigate("/movies/allmovies")}>
+						<button type='button' onClick={() => navigate(-1)}>
 							Cancel
 						</button>
 					</div>

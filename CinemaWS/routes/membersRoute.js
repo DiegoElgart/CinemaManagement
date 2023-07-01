@@ -43,9 +43,9 @@ router.route("/add").post(async (req, res) => {
 
 router.route("/:id").post(async (req, res) => {
 	try {
-		const updatedMember = req.body;
+		const obj = req.body;
 		const { id } = req.params;
-		const result = await membersBLL.updateMember(updatedMember, id);
+		const result = await membersBLL.updateMember(id, obj);
 		res.json(result);
 	} catch (err) {
 		res.status(500).json({ error: err.message });

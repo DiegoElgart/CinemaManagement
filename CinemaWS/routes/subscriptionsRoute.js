@@ -40,11 +40,19 @@ router.route("/new").post(async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 });
-
-router.route("/movies/:id").get(async (req, res) => {
+router.route("/delete/:id").post(async (req, res) => {
 	try {
 		const { id } = req.params;
-		const result = await subscriptionsBLL.getMembersByMovieId(id);
+		const result = await subscriptionsBLL.deleteSubscriptionByMemberId(id);
+		res.json(result);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+});
+router.route("/movieId/:id").get(async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await subscriptionsBLL.getSubscriptionByMovieId(id);
 		res.json(result);
 	} catch (err) {
 		res.status(500).json({ error: err.message });

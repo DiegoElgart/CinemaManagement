@@ -53,6 +53,7 @@ const addMember = async obj => {
 		throw new Error("Member already exists with the given email");
 	}
 	const member = new Member(obj);
+
 	await member.save();
 	return "Member Created";
 };
