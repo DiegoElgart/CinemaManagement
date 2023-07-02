@@ -5,11 +5,14 @@ import SubscriptionsComponent from "../Components/SubscriptionsComponent";
 import { fetchMovies } from "../slices/movies/moviesSlice";
 import { useNavigate } from "react-router-dom";
 import { deleteSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
+import { getIsAdmin, getUserPermissions } from "../slices/users/authSlice";
 
 const MembersPage = () => {
 	const dispatch = useDispatch();
 	const allMembers = useSelector(selectAllMembers);
 	const navigate = useNavigate();
+	const permissions = useSelector(getUserPermissions);
+	const isAdmin = useSelector(getIsAdmin);
 
 	const [members, setMembers] = useState([]);
 
@@ -39,15 +42,18 @@ const MembersPage = () => {
 									<h4>Email: {member.email}</h4>
 									<h4>City: {member.city}</h4>
 								</span>
-								<div className='button-container'>
-									<button className='button' onClick={() => navigate(`/subscriptions/members/${member._id}`)}>
-										Edit
-									</button>
-									<button className='button' onClick={e => handleDelete(e, member._id)}>
-										Delete
-									</button>
-								</div>
-								<SubscriptionsComponent memberId={member._id} />
+								{isAdmin ? (
+									<div className='button-container'>
+										<button className='button' onClick={() => navigate(`/subscriptions/members/${member._id}`)}>
+											Edit
+										</button>
+										<button className='button' onClick={e => handleDelete(e, member._id)}>
+											Delete
+										</button>
+									</div>
+								) : null}
+
+								{permissions[0].viewSubscriptions ? <SubscriptionsComponent memberId={member._id} /> : null}
 							</div>
 						);
 				  })

@@ -1,29 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchSubscriptionByMovieId, selectSubscription } from "../slices/subscriptions/subscriptionsSlice";
+import { useSelector } from "react-redux";
+import { getIsAdmin } from "../slices/users/authSlice";
 
-const SubscribedToMovieComponent = ({ movieId }) => {
-	const dispatch = useDispatch();
-	const subscriptions = useSelector(selectSubscription);
+const SubscribedToMovieComponent = ({ subscriptions, movieId }) => {
 	const [subsToShow, setSubsToShow] = useState([]);
+	const isAdmin = useSelector(getIsAdmin);
 
 	useEffect(() => {
-		dispatch(fetchSubscriptionByMovieId(movieId));
-	}, [dispatch, movieId]);
-
-	useEffect(() => {
-		if (subscriptions.length > 0) {
-			subscriptions.map(subs => {
-				if (subs.movieId === movieId) {
-					setSubsToShow(subscriptions);
-				}
-				return "Added";
-			});
+		if (subscriptions.length >= 1) {
+			setSubsToShow(subscriptions);
 		}
 	}, [subscriptions, movieId]);
 
-	const formattedDate = watchedDate => {
-		const date = new Date(watchedDate);
+	const formattedDate = movies => {
+		const movie = movies.find(movie => movie.movieId === movieId);
+		const date = new Date(movie.date);
 		const formattedDate = date.toISOString().slice(0, 10);
 		return formattedDate;
 	};
@@ -32,14 +23,17 @@ const SubscribedToMovieComponent = ({ movieId }) => {
 			{subsToShow.length > 0 ? (
 				<div>
 					<h4>Subscriptions watched</h4>
-					{subsToShow.map((subs, index) => (
-						<ul key={index}>
-							<li>
-								<a href={`/subscriptions/members/${subs.memberId}`}> {subs.name}</a>
-								<p>{formattedDate(subs.date)}</p>
-							</li>
-						</ul>
-					))}
+					{subsToShow.map(subs => {
+						return (
+							<ul key={subs._id}>
+								<li>
+									{isAdmin ? <a href={`/subscriptions/members/${subs.memberId._id}`}> {subs.memberId.name}</a> : <p>{subs.memberId.name}</p>}
+
+									<p>{formattedDate(subs.movies)}</p>
+								</li>
+							</ul>
+						);
+					})}
 				</div>
 			) : null}
 		</div>

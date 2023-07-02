@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { deleteMovie, fetchMovies, selectAllMovies } from "../slices/movies/moviesSlice";
 import SubscribedToMovieComponent from "../Components/SubscribedToMovieComponent";
+import { getUserPermissions } from "../slices/users/authSlice";
 
 const MoviesPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const allMovies = useSelector(selectAllMovies);
-
+	const permissions = useSelector(getUserPermissions);
 	const [find, setFind] = useState("");
 	const [movies, setMovies] = useState([]);
 
@@ -73,15 +74,19 @@ const MoviesPage = () => {
 								</ul>
 								<img src={movie.image} alt={movie.name} className='movie-image' />
 							</span>
-							<SubscribedToMovieComponent movieId={movie._id} />
+							<SubscribedToMovieComponent subscriptions={movie.subscriptions} movieId={movie._id} />
 
 							<div className='button-container'>
-								<button className='button' onClick={() => navigate(`/movies/edit/${movie._id}`)}>
-									Edit
-								</button>
-								<button className='button' onClick={() => handleDelete(movie._id)}>
-									Delete
-								</button>
+								{permissions[0].updateMovies ? (
+									<button className='button' onClick={() => navigate(`/movies/edit/${movie._id}`)}>
+										Edit
+									</button>
+								) : null}
+								{permissions[0].deleteMovies ? (
+									<button className='button' onClick={() => handleDelete(movie._id)}>
+										Delete
+									</button>
+								) : null}
 							</div>
 						</div>
 					</div>

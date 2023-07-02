@@ -19,13 +19,13 @@
 			"_id": "6484279b2565d1fbd868aafe",
 			"permissions": [
 				{
-					"viewSubscriptions": true,
+					"viewSubscriptions": false,
 					"createSubscriptions": false,
-					"deleteSubscriptions": true,
+					"deleteSubscriptions": false,
 					"updateSubscriptions": false,
 					"viewMovies": true,
 					"createMovies": false,
-					"deleteMovies": true,
+					"deleteMovies": false,
 					"updateMovies": false
 				}
 			]

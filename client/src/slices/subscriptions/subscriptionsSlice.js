@@ -6,37 +6,67 @@ const SUBSCRIPTIONS_URL = "http://localhost:3000/subscriptions";
 const initialState = {
 	subscriptions: [],
 	subcriptionById: {},
-	subscription: {},
+	subscription: [],
 	isSubscription: false,
 	status: "idle",
 	error: null,
 };
 
 export const fetchAllSubscriptions = createAsyncThunk("subscriptions/fetchSubscriptions", async () => {
-	const response = await axios.get(SUBSCRIPTIONS_URL);
+	const response = await axios.get(SUBSCRIPTIONS_URL, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const fetchSubscriptionById = createAsyncThunk("subscription/fetchSubscriptionById", async id => {
-	const response = await axios.get(`${SUBSCRIPTIONS_URL}/${id}`);
+	const response = await axios.get(`${SUBSCRIPTIONS_URL}/${id}`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const fetchSubscriptionByMemberId = createAsyncThunk("subscription/fetchSubscriptionByMemberId", async memberId => {
-	const response = await axios.get(`${SUBSCRIPTIONS_URL}/memberId/${memberId}`);
+	const response = await axios.get(`${SUBSCRIPTIONS_URL}/memberId/${memberId}`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 export const fetchSubscriptionByMovieId = createAsyncThunk("subscription/fetchSubscriptionByMovieId", async movieId => {
-	const response = await axios.get(`${SUBSCRIPTIONS_URL}/movieId/${movieId}`);
+	const response = await axios.get(`${SUBSCRIPTIONS_URL}/movieId/${movieId}`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const addSubscription = createAsyncThunk("subscription/addSubscription", async newSubscription => {
-	const response = await axios.post(`${SUBSCRIPTIONS_URL}/new`, newSubscription);
+	const response = await axios.post(`${SUBSCRIPTIONS_URL}/new`, newSubscription, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 export const deleteSubscriptionByMemberId = createAsyncThunk("subscription/deleteSubscriptionByMemberId", async memberId => {
-	const response = await axios.post(`${SUBSCRIPTIONS_URL}/delete/${memberId}`);
+	const response = await axios.post(`${SUBSCRIPTIONS_URL}/delete/${memberId}`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 

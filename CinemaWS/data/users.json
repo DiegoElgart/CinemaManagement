@@ -5,7 +5,7 @@
 			"fname": "Administrator",
 			"lname": "Admin",
 			"createdDate": "03/06/2023",
-			"sessionTimeOut": "99"
+			"sessionTimeOut": "10"
 		},
 		{
 			"_id": "6484279b2565d1fbd868aafe",

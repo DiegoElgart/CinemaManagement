@@ -11,27 +11,52 @@ const initialState = {
 };
 
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
-	const response = await axios.get(MOVIES_URL);
+	const response = await axios.get(MOVIES_URL, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const fetchMovieById = createAsyncThunk("movie/fetchMovieById", async id => {
-	const response = await axios.get(`${MOVIES_URL}/${id}`);
+	const response = await axios.get(`${MOVIES_URL}/${id}`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const addNewMovie = createAsyncThunk("movie/addNewMovie", async newMovie => {
-	const response = await axios.post(`${MOVIES_URL}/new`, newMovie);
+	const response = await axios.post(`${MOVIES_URL}/new`, newMovie, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const updateMovie = createAsyncThunk("movie/updateMovie", async updateMovie => {
-	const response = await axios.post(`${MOVIES_URL}/${updateMovie._id}`, updateMovie);
+	const response = await axios.post(`${MOVIES_URL}/${updateMovie._id}`, updateMovie, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const deleteMovie = createAsyncThunk("movie/deleteMovie", async id => {
-	const response = await axios.post(`${MOVIES_URL}/${id}/delete`);
+	const response = await axios.post(`${MOVIES_URL}/${id}/delete`, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 

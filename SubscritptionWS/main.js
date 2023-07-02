@@ -17,6 +17,4 @@ app.use("/members", membersRoutes);
 app.use("/movies", moviesRoutes);
 app.use("/subscriptions", subscriptionsRoutes);
 
-app.listen(PORT, () =>
-    console.log(`SubscriptionWS listening at http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`SubscriptionWS listening at http://localhost:${PORT}`));

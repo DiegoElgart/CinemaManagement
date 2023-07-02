@@ -1,8 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/users/usersSlice";
+import { getIsAdmin } from "../slices/users/authSlice";
 
-const MainMenu = ({ permissions }) => {
+const MainPage = ({ permissions }) => {
+	const isAdmin = useSelector(getIsAdmin);
 	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
@@ -27,9 +29,12 @@ const MainMenu = ({ permissions }) => {
 	return (
 		<div className='main-page'>
 			<div className='button-container'>
-				<button onClick={handleMoviesClick}>Movies</button>
+				{permissions[0].viewMovies ? <button onClick={handleMoviesClick}>Movies</button> : null}
+
 				<button onClick={handleSubscriptionsClick}>Subscriptions</button>
-				<button onClick={handleUsersManagementClick}>Users Management</button>
+
+				{isAdmin ? <button onClick={handleUsersManagementClick}>Users Management</button> : null}
+
 				<button onClick={handleLogoutClick}>Logout</button>
 			</div>
 			<Outlet />
@@ -37,4 +42,4 @@ const MainMenu = ({ permissions }) => {
 	);
 };
 
-export default MainMenu;
+export default MainPage;

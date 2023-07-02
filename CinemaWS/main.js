@@ -19,10 +19,8 @@ connectDB();
 
 app.use("/auth", authRouter);
 app.use("/user", userRoute);
-app.use("/members", membersRoutes);
+app.use("/members", auth, membersRoutes);
 app.use("/movies", moviesRoutes);
 app.use("/subscriptions", subscriptionsRoute);
 app.use("/permissions", permissionRoute);
-app.listen(PORT, () =>
-    console.log(`CinemaWS listening at http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`CinemaWS listening at http://localhost:${PORT}`));

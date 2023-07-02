@@ -11,27 +11,37 @@ const initialState = {
 };
 
 export const fetchAllMembers = createAsyncThunk("members/fecthAllMembers", async () => {
-	const response = await axios.get(`${MEMBERS_URL}`);
+	const response = await axios.get(`${MEMBERS_URL}`, { headers: { "access-token": localStorage.getItem("accessToken") } });
 	return response.data;
 });
 
 export const fetchMemberById = createAsyncThunk("members/fetchMemberById", async memberId => {
-	const response = await axios.get(`${MEMBERS_URL}/${memberId}`);
+	const response = await axios.get(`${MEMBERS_URL}/${memberId}`, { headers: { "access-token": localStorage.getItem("accessToken") } });
 	return response.data;
 });
 
 export const updateMember = createAsyncThunk("member/updateMember", async obj => {
-	const response = await axios.post(`${MEMBERS_URL}/${obj._id}`, obj);
+	const response = await axios.post(`${MEMBERS_URL}/${obj._id}`, obj, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 
 export const deleteMember = createAsyncThunk("member/deleteMember", async memberId => {
-	const response = await axios.post(`${MEMBERS_URL}/${memberId}/delete`);
+	const response = await axios.post(`${MEMBERS_URL}/${memberId}/delete`, { headers: { "access-token": localStorage.getItem("accessToken") } });
 	return response.data;
 });
 
 export const addNewMember = createAsyncThunk("members/addNewMember", async obj => {
-	const response = await axios.post(`${MEMBERS_URL}/new`, obj);
+	const response = await axios.post(`${MEMBERS_URL}/new`, obj, {
+		headers: {
+			"Content-Type": "application/json",
+			"access-token": localStorage.getItem("accessToken"),
+		},
+	});
 	return response.data;
 });
 const membersSlice = createSlice({

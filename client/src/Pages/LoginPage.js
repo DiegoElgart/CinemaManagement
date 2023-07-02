@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getaAuthStatus, loginUser, selectUser } from "../slices/users/authSlice";
 
-const LoginPage = () => {
+const LoginPage = ({ permissions }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({ username: "", password: "" });
@@ -16,7 +16,7 @@ const LoginPage = () => {
 	useEffect(() => {
 		if (authStatus === "succeeded") {
 			localStorage.setItem("accessToken", user.accessToken);
-			navigate("/");
+			navigate("/main");
 		} else if (authStatus === "failed") {
 			navigate("/");
 			alert("wrong password or username");
