@@ -53,12 +53,16 @@ export const updateUser = createAsyncThunk("user/updateUser", async updatedUser 
 });
 
 export const deleteUser = createAsyncThunk("user/deleteUser", async deleteUser => {
-	const response = await axios.post(`${USERS_URL}/delete/${deleteUser}`, {
-		headers: {
-			"Content-Type": "application/json",
-			"access-token": localStorage.getItem("accessToken"),
-		},
-	});
+	const response = await axios.post(
+		`${USERS_URL}/delete/${deleteUser}`,
+		{},
+		{
+			headers: {
+				"Content-Type": "application/json",
+				"access-token": localStorage.getItem("accessToken"),
+			},
+		}
+	);
 	return response.data;
 });
 export const loginUser = createAsyncThunk("user/loginUser", async loginData => {

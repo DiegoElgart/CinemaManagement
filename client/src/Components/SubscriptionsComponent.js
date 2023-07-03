@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addSubscription, fetchSubscriptionByMemberId, selectSubscriptionByMemberId } from "../slices/subscriptions/subscriptionsSlice";
 import MoviesSubsComp from "./MoviesSubsComp";
 import { selectAllMovies } from "../slices/movies/moviesSlice";
+import { useNavigate } from "react-router-dom";
 const SubscriptionsComponent = ({ memberId }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const subscriptionDb = useSelector(selectSubscriptionByMemberId);
 	const moviesDb = useSelector(selectAllMovies);
 
@@ -41,13 +43,12 @@ const SubscriptionsComponent = ({ memberId }) => {
 	const handleDispatch = async () => {
 		const newSubscription = {
 			memberId: memberId,
-
 			movieId: movieId,
 			date: date,
 		};
 		await dispatch(addSubscription(newSubscription));
 		alert("Subscription Created");
-		window.location.reload(false);
+		navigate("/subscriptions");
 	};
 	return (
 		<div>

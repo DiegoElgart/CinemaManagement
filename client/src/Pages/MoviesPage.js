@@ -45,7 +45,7 @@ const MoviesPage = () => {
 	};
 	const handleDelete = id => {
 		dispatch(deleteMovie(id));
-		window.location.reload();
+		navigate("/movies");
 	};
 	return (
 		<div className='movies-container'>

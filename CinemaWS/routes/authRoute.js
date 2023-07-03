@@ -14,7 +14,6 @@ router.route("/login").post(async (req, res) => {
 		const user = await User.findOne({ username: username });
 
 		const fullUser = await usersBLL.getUserById(user._id.toString());
-		console.log(fullUser);
 		const checkPassword = await bcrypt.compare(password, user.password);
 
 		if (user && checkPassword) {

@@ -31,7 +31,7 @@ export const updateMember = createAsyncThunk("member/updateMember", async obj =>
 });
 
 export const deleteMember = createAsyncThunk("member/deleteMember", async memberId => {
-	const response = await axios.post(`${MEMBERS_URL}/${memberId}/delete`, { headers: { "access-token": localStorage.getItem("accessToken") } });
+	const response = await axios.post(`${MEMBERS_URL}/${memberId}/delete`,{}, { headers: { "Content-Type": "application/json", "access-token": localStorage.getItem("accessToken") } });
 	return response.data;
 });
 

@@ -7,7 +7,7 @@ const SubscribedToMovieComponent = ({ subscriptions, movieId }) => {
 	const isAdmin = useSelector(getIsAdmin);
 
 	useEffect(() => {
-		if (subscriptions.length >= 1) {
+		if (subscriptions && subscriptions.length >= 1) {
 			setSubsToShow(subscriptions);
 		}
 	}, [subscriptions, movieId]);

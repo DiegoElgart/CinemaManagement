@@ -61,12 +61,16 @@ export const addSubscription = createAsyncThunk("subscription/addSubscription", 
 	return response.data;
 });
 export const deleteSubscriptionByMemberId = createAsyncThunk("subscription/deleteSubscriptionByMemberId", async memberId => {
-	const response = await axios.post(`${SUBSCRIPTIONS_URL}/delete/${memberId}`, {
-		headers: {
-			"Content-Type": "application/json",
-			"access-token": localStorage.getItem("accessToken"),
-		},
-	});
+	const response = await axios.post(
+		`${SUBSCRIPTIONS_URL}/delete/${memberId}`,
+		{},
+		{
+			headers: {
+				"Content-Type": "application/json",
+				"access-token": localStorage.getItem("accessToken"),
+			},
+		}
+	);
 	return response.data;
 });
 

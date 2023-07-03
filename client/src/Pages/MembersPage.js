@@ -29,7 +29,7 @@ const MembersPage = () => {
 		e.preventDefault();
 		await dispatch(deleteMember(memberId));
 		await dispatch(deleteSubscriptionByMemberId(memberId));
-		window.location.reload();
+		navigate("/subscriptions");
 	};
 	return (
 		<div>

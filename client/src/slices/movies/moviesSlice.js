@@ -51,12 +51,16 @@ export const updateMovie = createAsyncThunk("movie/updateMovie", async updateMov
 });
 
 export const deleteMovie = createAsyncThunk("movie/deleteMovie", async id => {
-	const response = await axios.post(`${MOVIES_URL}/${id}/delete`, {
-		headers: {
-			"Content-Type": "application/json",
-			"access-token": localStorage.getItem("accessToken"),
-		},
-	});
+	const response = await axios.post(
+		`${MOVIES_URL}/${id}/delete`,
+		{},
+		{
+			headers: {
+				"Content-Type": "application/json",
+				"access-token": localStorage.getItem("accessToken"),
+			},
+		}
+	);
 	return response.data;
 });
 

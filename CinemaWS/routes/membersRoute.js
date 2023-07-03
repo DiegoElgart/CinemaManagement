@@ -55,6 +55,7 @@ router.route("/:id").post(async (req, res) => {
 router.route("/:id/delete").post(async (req, res) => {
 	try {
 		const { id } = req.params;
+		console.log(id);
 		const result = await membersBLL.deleteMember(id);
 		res.json(result);
 	} catch (err) {

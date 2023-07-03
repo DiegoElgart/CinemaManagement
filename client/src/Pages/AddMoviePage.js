@@ -41,7 +41,6 @@ const AddMoviePage = () => {
 
 		setWords(prevWords => [...prevWords, ...separatedWords]);
 		setInputValue("");
-		console.log(words);
 
 		const dateString = movieToAdd.premiered;
 		const dateTime = new Date(dateString);
@@ -56,7 +55,7 @@ const AddMoviePage = () => {
 
 		await dispatch(addNewMovie(newMovie));
 		alert("Movie Created");
-		navigate("/movies/allmovies");
+		navigate('/movies');
 	};
 
 	return (

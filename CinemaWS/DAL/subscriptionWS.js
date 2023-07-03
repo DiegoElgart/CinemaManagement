@@ -7,7 +7,8 @@ const getAllSubscriptions = async () => {
 };
 
 const addSubscription = async obj => {
-	return await axios.post(`${URL}/new`, obj);
+	const result = await axios.post(`${URL}/new`, obj);
+	return result;
 };
 
 const getSubscriptionByMovieId = async movieId => {
